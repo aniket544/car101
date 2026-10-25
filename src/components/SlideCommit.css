@@ -1,0 +1,107 @@
+
+/* CAR101 SlideCommit layout fix */
+.sc-root {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.sc-root > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--sc-radius);
+  background: var(--sc-track);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.sc-root > div > span:first-child {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: var(--sc-font);
+  font-weight: 600;
+  line-height: 1;
+  z-index: 0;
+}
+
+.sc-root > div > span:first-child > span {
+  grid-area: 1 / 1;
+  max-width: 100%;
+  text-align: center;
+}
+
+.sc-root [role="slider"] {
+  position: absolute;
+  top: var(--sc-pad);
+  left: var(--sc-pad);
+  width: calc(100% - var(--sc-pad) * 2);
+  height: calc(100% - var(--sc-pad) * 2);
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: var(--sc-grip-r);
+  background: var(--sc-ink);
+  color: var(--sc-on-ink);
+  outline: none;
+}
+
+.sc-root [role="slider"] > div {
+  position: absolute;
+  inset: 0;
+}
+
+.sc-root [role="slider"] > div > span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  line-height: 1;
+  font-size: var(--sc-font);
+}
+
+.sc-root [role="slider"] svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.sc-root[data-phase="done"] [role="slider"] {
+  background: var(--sc-ok);
+  color: var(--sc-on-ok);
+}
+
+.sc-root[data-phase="error"] [role="slider"] {
+  background: var(--sc-no);
+  color: var(--sc-on-no);
+}
+
+.sc-root[data-held] {
+  cursor: grabbing;
+}
+
+.sc-root [role="slider"]:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--sc-track);
+}
+
+@media (max-width: 480px) {
+  .slide-commit-wrapper {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .slide-commit-wrapper .sc-root {
+    max-width: 100%;
+  }
+}

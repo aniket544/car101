@@ -1,0 +1,48 @@
+.bell-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: var(--bt-height, 44px);
+  padding: 0 19px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--bt-radius, 22px);
+  background: var(--bt-bg, #27272a);
+  color: var(--bt-color, #f5f5f5);
+  font: 600 13.5px/1 system-ui, sans-serif;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, transform 160ms ease;
+  position: relative;
+}
+.bell-toggle:hover { transform: translateY(-1px); }
+.bell-toggle:active { transform: scale(.97); }
+.bell-toggle.is-on { background: var(--bt-on-bg, #f5f5f5); color: var(--bt-on-color, #18181b); }
+.bell-toggle:disabled { opacity: .55; cursor: not-allowed; }
+.bell-toggle-icon { width: 19px; height: 19px; flex: 0 0 19px; position: relative; display: inline-flex; }
+.bell-toggle-icon > svg { width: 100%; height: 100%; transform-origin: 50% 16%; }
+.bell-toggle.is-ringing .bell-toggle-icon > svg { animation: bell-toggle-ring var(--bt-ring-duration, 820ms) ease-in-out; }
+.bell-toggle-label { display: grid; grid-template: 1fr / 1fr; line-height: 18px; }
+.bell-toggle-label span { grid-area: 1 / 1; opacity: 0; filter: blur(2px); transition: opacity 200ms ease, filter 200ms ease; }
+.bell-toggle-label span.label-visible { opacity: 1; filter: blur(0); }
+.bell-count { position: absolute; right: -8px; top: -7px; min-width: 15px; height: 15px; padding: 0 3px; box-sizing: border-box; display: grid; place-items: center; border-radius: 8px; background: var(--bt-badge, #ef4444); color: #fff; font-size: 9px; font-weight: 700; line-height: 1; }
+.bell-waves { position: absolute; inset: -3px -5px auto; display: flex; justify-content: space-between; pointer-events: none; }
+.bell-waves i { display: block; width: 5px; height: 8px; border-top: 1.5px solid currentColor; opacity: 0; }
+.bell-toggle.is-ringing .bell-waves i { animation: bell-wave 450ms ease-out 1; }
+.bell-waves i:first-child { border-left: 1.5px solid currentColor; border-radius: 8px 0 0; transform: rotate(-25deg); }
+.bell-waves i:last-child { border-right: 1.5px solid currentColor; border-radius: 0 8px 0 0; transform: rotate(25deg); }
+@keyframes bell-toggle-ring {
+  0%, 100% { transform: rotate(0); }
+  12% { transform: rotate(calc(var(--bt-ring) * -1)); }
+  25% { transform: rotate(var(--bt-ring)); }
+  38% { transform: rotate(calc(var(--bt-ring) * -.75)); }
+  51% { transform: rotate(calc(var(--bt-ring) * .75)); }
+  64% { transform: rotate(calc(var(--bt-ring) * -.4)); }
+  77% { transform: rotate(calc(var(--bt-ring) * .4)); }
+}
+@keyframes bell-wave { 0% { opacity: 0; transform: scale(.6); } 35% { opacity: .9; } 100% { opacity: 0; transform: scale(1.25); } }
+@media (prefers-reduced-motion: reduce) {
+  .bell-toggle, .bell-toggle-label span { transition: none; }
+  .bell-toggle.is-ringing .bell-toggle-icon > svg, .bell-toggle.is-ringing .bell-waves i { animation: none; }
+}
