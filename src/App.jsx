@@ -195,7 +195,7 @@ export default function App() {
       <nav className="navbar" aria-label="Main navigation">
         <a className="logo-container" href="#top" aria-label="CAR 101 home">
           <img src={logo} alt="" className="logo" />
-          <span className="brand-wordmark"><small>DRIVE CLEAN.<br />DRIVE PROUD.</small></span>
+          
         </a>
         <div className="nav-links">
           <a href="#features">FEATURES</a>
@@ -372,9 +372,9 @@ export default function App() {
           </div>
 
           <div className="reviews-showcase">
-            <div className="reviews-visual">
+            <div className="reviews-banner-img shadow">
               <img src={happyCustomers} alt="CAR 101 car-care community" className="reviews-community-img" loading="lazy" />
-              <div className="reviews-visual-caption"><span className="reviews-caption-icon">✦</span><div><strong>Made for everyday car care</strong><small>Your experience makes the community better.</small></div></div>
+              <div className="reviews-banner-caption"><span className="reviews-caption-icon">✦</span><div><strong>Made for everyday car care</strong><small>Your experience makes the community better.</small></div></div>
             </div>
 
             <div className="review-form-card">
