@@ -11,6 +11,7 @@ import waterSaved from "./assets/listing zipzap5.jpg";
 import videoShowcase from "./assets/car101-showcase.mp4";
 import { Share2 } from "lucide-react";
 import comparisonImage from './assets/5.jpg';
+
 const PRODUCT = {
   id: "car101-zip-zap-duster",
   name: "CAR 101 Zip-Zap Duster",
@@ -51,6 +52,15 @@ export default function App() {
   );
   const pricePerUnit = PRODUCT.price;
 
+  const discountPercentage = Math.round(
+  ((PRODUCT.oldPrice - pricePerUnit) / PRODUCT.oldPrice) * 100
+);
+
+const savingsPerUnit = PRODUCT.oldPrice - pricePerUnit;
+
+const selectedTotal = pricePerUnit * qty;
+
+const selectedSavings = savingsPerUnit * qty;
   const images = [
     dusterPack,
     ceramicFeature,
@@ -403,18 +413,35 @@ export default function App() {
               and microscopic particles instantly. Clean your vehicle in a
               single stroke without a drop of water.
             </p>
+<div className="price-box">
+  <div className="price-main-row">
+    <span className="current-price">
+      ₹{pricePerUnit.toLocaleString("en-IN")}
+    </span>
 
-            <div className="price-box">
-              <span className="current-price">
-                ₹{pricePerUnit.toLocaleString("en-IN")}
-              </span>
-              <span className="old-price">
-                ₹{PRODUCT.oldPrice.toLocaleString("en-IN")}
-              </span>
-              <span className="discount-tag">
-                SAVE {Math.round((1 - pricePerUnit / PRODUCT.oldPrice) * 100)}%
-              </span>
-            </div>
+    <span className="old-price">
+      ₹{PRODUCT.oldPrice.toLocaleString("en-IN")}
+    </span>
+
+    <span className="discount-tag">
+      SAVE {discountPercentage}%
+    </span>
+  </div>
+
+  <div className="price-extra-row">
+    <span>
+      Total for {qty} {qty === 1 ? "item" : "items"}
+    </span>
+
+    <strong>
+      ₹{selectedTotal.toLocaleString("en-IN")}
+    </strong>
+  </div>
+
+  <div className="price-saving">
+    You save ₹{selectedSavings.toLocaleString("en-IN")}
+  </div>
+</div>
 
             <div
               id="buy-section"
@@ -457,14 +484,23 @@ export default function App() {
               </div>
             </div>
 
-            <div className="features-pills">
-              <div>✨ Ceramic-Wax Infused</div>
-              <div>⚡ Electrostatic Power</div>
-              <div>🇮🇳 Made in India</div>
-            </div>
-            <p className="secure-note">
-              Secure checkout · Easy everyday car care
-            </p>
+            <div className="product-features-grid">
+  <div className="product-feature">
+    ✨ Ceramic-Wax Infused
+  </div>
+
+  <div className="product-feature">
+    ⚡ Electrostatic Power
+  </div>
+
+  <div className="product-feature">
+    🇮🇳 Made in India
+  </div>
+
+  <div className="product-feature">
+    💧 Waterless Cleaning
+  </div>
+</div>
           </div>
         </section>
 
