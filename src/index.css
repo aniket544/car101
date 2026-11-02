@@ -605,9 +605,12 @@ img {
 
 .buy-now-btn {
   border-color: #fff;
+  background: transparent;
 color: #fff;
 }
-
+.purchase-actions .buy-now-btn {
+  background: transparent;
+}
 .buy-now-btn:hover {
   border-color: var(--color-primary);
   background: var(--color-primary);
