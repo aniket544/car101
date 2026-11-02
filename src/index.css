@@ -583,9 +583,28 @@ img {
   gap: 10px;
   width: 100%;
 }
-
 .purchase-actions button,
-.buy-now-btn,
+.buy-now-btn{
+   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 13px 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border:1px solid white;
+  background-color:transparent;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .07em;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.purchase-actions button,.buy-now-btn:hover{
+  border-color: var(--color-primary-hover);
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
 .add-to-cart-btn {
   display: inline-flex;
   align-items: center;
@@ -594,6 +613,8 @@ img {
   padding: 13px 15px;
   border: 1px solid transparent;
   border-radius: 4px;
+  border:1px solid white;
+  background-color:#ff6a1a;
   font-size: 11px;
   font-weight: 900;
   letter-spacing: .07em;
@@ -3044,5 +3065,124 @@ a.kits-item:hover {
     max-width: 360px;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+
+
+/* ---------- You May Also Like (scoped) ---------- */
+.ymal-section {
+  width: 100%;
+  padding: 24px 16px;
+  background: var(--color-background);
+}
+
+.ymal-inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  min-width: 0;
+}
+
+.ymal-title {
+  margin: 0 0 14px;
+  color: var(--color-text);
+  font-size: clamp(20px, 5vw, 28px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.ymal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.ymal-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.ymal-card:hover {
+  border-color: var(--color-primary);
+}
+
+.ymal-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.ymal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ymal-name {
+  margin: 8px 0 4px;
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ymal-price {
+  margin-bottom: 6px;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ymal-add-btn {
+  display: block;
+  margin-top: auto;
+  padding: 8px 6px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ymal-add-btn:hover {
+  background: var(--color-primary-hover);
+}
+
+.ymal-add-btn:disabled {
+  background: var(--color-surface-raised);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+
+@media (min-width: 640px) {
+  .ymal-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .ymal-name {
+    font-size: 13px;
+  }
+  .ymal-add-btn {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ymal-section {
+    padding: 32px 24px;
   }
 }

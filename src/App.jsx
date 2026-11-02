@@ -13,6 +13,8 @@ import videoShowcase from "./assets/car101-showcase.mp4";
 import { Share2 } from "lucide-react";
 import comparisonImage from './assets/5.jpg';
 import KitsCombos from "./components/KitsCombos";
+import YouMayAlsoLike from "./components/YouMayAlsoLike";
+
 const PRODUCT = {
   id: "car101-zip-zap-duster",
   name: "CAR 101 Zip-Zap Duster",
@@ -500,16 +502,17 @@ const selectedSavings = savingsPerUnit * qty;
                 </div>
               </div>
               <div className="purchase-actions">
-                <button type="button" className="buy-now-btn" onClick={buyNow}>
-                  BUY NOW
-                </button>
-                <button
+                 <button
                   type="button"
                   className="add-to-cart-btn"
                   onClick={() => addToCart(qty)}
                 >
                   ADD TO CART
                 </button>
+                <button type="button" className="buy-now-btn" onClick={buyNow}>
+                  BUY NOW
+                </button>
+               
               </div>
             </div>
 
@@ -651,6 +654,7 @@ const selectedSavings = savingsPerUnit * qty;
             </div>
           </div>
         </section>
+        <YouMayAlsoLike onAddToCart={addVariantToCart} />
 
         <section id="reviews" className="section-padded reviews-section">
           <div className="section-title">
