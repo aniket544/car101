@@ -12,7 +12,7 @@ import waterSaved from "./assets/listing zipzap5.jpg";
 import videoShowcase from "./assets/car101-showcase.mp4";
 import { Share2 } from "lucide-react";
 import comparisonImage from './assets/5.jpg';
-
+import KitsCombos from "./components/KitsCombos";
 const PRODUCT = {
   id: "car101-zip-zap-duster",
   name: "CAR 101 Zip-Zap Duster",
@@ -551,6 +551,7 @@ const selectedSavings = savingsPerUnit * qty;
             />
           </div>
         </section>
+        <KitsCombos />
         <section id="features" className="section-padded">
           <div className="section-title">
             <span className="tag">Engineering &amp; Tech</span>
