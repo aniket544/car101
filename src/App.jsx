@@ -554,7 +554,7 @@ const selectedSavings = savingsPerUnit * qty;
             />
           </div>
         </section>
-        <KitsCombos />
+        <KitsCombos  />
         <section id="features" className="section-padded">
           <div className="section-title">
             <span className="tag">Engineering &amp; Tech</span>
@@ -606,28 +606,7 @@ const selectedSavings = savingsPerUnit * qty;
   </div>
 </section>
 
-        <section id="impact" className="dark-section">
-          <div className="grid-2 align-center max-w-1200">
-            <div>
-              <span className="tag">Eco Movement</span>
-              <h2 className="text-white">Make Every Clean Count</h2>
-              <p className="text-gray">
-                Traditional car washing can use a significant amount of water. A
-                quick duster clean can help reduce the need for a full wash when
-                your car only needs light dust removal.
-              </p>
-            </div>
-            <div>
-              <img
-                src={waterSaved}
-                alt="CAR 101 water-saving car-care visual"
-                className="rounded-img"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </section>
-
+       
         <section id="rejuvenate" className="section-padded">
           <div className="dark-card grid-2 align-center">
             <div className="padding-box">
@@ -654,7 +633,9 @@ const selectedSavings = savingsPerUnit * qty;
             </div>
           </div>
         </section>
-        <YouMayAlsoLike onAddToCart={addVariantToCart} />
+
+        
+        <YouMayAlsoLike onAddToCart={addVariantToCart}/>
 
         <section id="reviews" className="section-padded reviews-section">
           <div className="section-title">

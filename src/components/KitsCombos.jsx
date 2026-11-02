@@ -2,7 +2,7 @@ import { KITS, KITS_PAGE_LINK } from "../data/kits";
 
 const formatPrice = (value) => `₹${value.toLocaleString("en-IN")}`;
 
-export default function KitsCombos({ kits = KITS }) {
+export default function KitsCombos({ kits = KITS, onAddToCart }) {
   return (
     <section className="kits-section" aria-labelledby="kits-title">
       <div className="kits-inner">
@@ -15,27 +15,37 @@ export default function KitsCombos({ kits = KITS }) {
           and pricing.
         </p>
 
-        <ul className="kits-list">
+        <div className="kits-grid">
           {kits.map((kit) => {
-            const Tag = kit.link ? "a" : "div";
-            const linkProps = kit.link ? { href: kit.link } : {};
+            const hasLink = Boolean(kit.link);
+            const canAdd = kit.price !== null && Boolean(onAddToCart);
             return (
-              <li key={kit.id}>
-                <Tag className="kits-item" {...linkProps}>
-                  <div className="kits-item-image">
+              <article className="kits-card" key={kit.id}>
+                {hasLink ? (
+                  <a className="kits-image" href={kit.link} aria-label={kit.name}>
+                    {kit.image && <img src={kit.image} alt={kit.name} />}
+                  </a>
+                ) : (
+                  <div className="kits-image">
                     {kit.image && <img src={kit.image} alt={kit.name} />}
                   </div>
-                  <div className="kits-item-info">
-                    <span className="kits-item-name">{kit.name}</span>
-                    <span className="kits-item-price">
-                      {formatPrice(kit.price)}
-                    </span>
-                  </div>
-                </Tag>
-              </li>
+                )}
+
+                <p className="kits-item-name">{kit.name}</p>
+                <span className="kits-item-price">{formatPrice(kit.price)}</span>
+
+                <button
+                  type="button"
+                  className="kits-add-btn"
+                  onClick={() => onAddToCart(kit)}
+                  disabled={!canAdd}
+                >
+                  ADD TO CART
+                </button>
+              </article>
             );
           })}
-        </ul>
+        </div>
 
         <a className="kits-view-all" href={KITS_PAGE_LINK}>
           View all kits &amp; combos ↗
