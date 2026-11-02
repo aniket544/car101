@@ -554,7 +554,7 @@ const selectedSavings = savingsPerUnit * qty;
             />
           </div>
         </section>
-        <KitsCombos  />
+        <KitsCombos onAddToCart={addVariantToCart} />
         <section id="features" className="section-padded">
           <div className="section-title">
             <span className="tag">Engineering &amp; Tech</span>

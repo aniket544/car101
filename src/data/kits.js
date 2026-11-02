@@ -1,6 +1,5 @@
 // Fill in image (import from ../assets) and link for each kit. The "View all" button uses KITS_PAGE_LINK.
 
-
 import ultimateshine from "../assets/image1.png";
 import zipzapduster from "../assets/image2.png";
 import ciramiccoating from "../assets/image4.png";
@@ -9,7 +8,6 @@ import smalltowel from "../assets/image5.png";
 import rejuvenator from "../assets/image6.png";
 
 export const KITS_PAGE_LINK = "https://car101.in/collections/combos";
-
 
 export const KITS = [
   {
