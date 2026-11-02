@@ -325,7 +325,8 @@ const selectedSavings = savingsPerUnit * qty;
 
       <main id="top">
         <section className="hero-section">
-          <div className="hero-image-box">
+          <div className="hero-media-column">
+            <div className="hero-image-box">
             <div className="main-preview-container">
               <button
                 type="button"
@@ -367,6 +368,27 @@ const selectedSavings = savingsPerUnit * qty;
                   <img src={img} alt="" />
                 </button>
               ))}
+            </div>
+            </div>
+            <section className="car101-video-section desktop-hero-video" aria-label="The CAR101 experience">
+            <div className="video-heading">
+              <span>THE CAR101 EXPERIENCE</span>
+              <h2>See, That's The Point.</h2>
+            </div>
+            <div className="car101-video-wrapper">
+              <video
+                className="car101-showcase-video"
+                src={videoShowcase}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              />
+            </div>
+            </section>
+            <div className="desktop-hero-kits">
+              <KitsCombos onAddToCart={addVariantToCart} />
             </div>
           </div>
           {menuOpen && (
@@ -536,7 +558,7 @@ const selectedSavings = savingsPerUnit * qty;
           </div>
         </section>
 
-        <section className="car101-video-section">
+        <section className="car101-video-section mobile-flow-video">
           <div className="video-heading">
             <span>THE CAR101 EXPERIENCE</span>
             <h2>See, That's The Point.</h2>
@@ -554,7 +576,9 @@ const selectedSavings = savingsPerUnit * qty;
             />
           </div>
         </section>
-        <KitsCombos onAddToCart={addVariantToCart} />
+        <div className="mobile-flow-kits">
+          <KitsCombos onAddToCart={addVariantToCart} />
+        </div>
         <section id="features" className="section-padded">
           <div className="section-title">
             <span className="tag">Engineering &amp; Tech</span>
