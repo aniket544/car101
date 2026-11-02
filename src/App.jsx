@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import BellToggle from "./components/BellToggle";
 import PeekRating from "./components/PeekRating";
+import VariantSelector from "./components/VariantSelector";
 import logo from "./assets/CAR101-Logo-w.png";
 import dusterPack from "./assets/1.jpg";
 import ceramicFeature from "./assets/listing zipzap1.jpg";
@@ -200,6 +201,32 @@ const selectedSavings = savingsPerUnit * qty;
     setCheckoutMessage(false);
     setIsCartOpen(true);
   };
+
+  const addVariantToCart = (variant) => {
+  if (variant.price === null) return;
+  setCart((currentCart) => {
+    const existing = currentCart.find((item) => item.id === variant.id);
+    if (existing) {
+      return currentCart.map((item) =>
+        item.id === variant.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item,
+      );
+    }
+    return [
+      ...currentCart,
+      {
+        id: variant.id,
+        name: variant.name,
+        price: variant.price,
+        image: variant.image,
+        quantity: 1,
+      },
+    ];
+  });
+  setCheckoutMessage(false);
+  setIsCartOpen(true);
+};
 
   const updateCartQuantity = (id, nextQuantity) => {
     if (nextQuantity < 1) {
@@ -413,7 +440,9 @@ const selectedSavings = savingsPerUnit * qty;
               and microscopic particles instantly. Clean your vehicle in a
               single stroke without a drop of water.
             </p>
-<div className="price-box">
+<VariantSelector  onAddToCart={addVariantToCart} />
+
+            <div className="price-box">
   <div className="price-main-row">
     <span className="current-price">
       ₹{pricePerUnit.toLocaleString("en-IN")}
