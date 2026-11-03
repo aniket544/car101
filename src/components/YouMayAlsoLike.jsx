@@ -1,20 +1,13 @@
 import { useRef } from "react";
 import { YOU_MAY_ALSO_LIKE } from "../data/youMayAlsoLike";
+import CartIconButton from "./CartIconButton";
 
 const formatPrice = (value) => `₹${value.toLocaleString("en-IN")}`;
 
-const renderStars = (rating) =>
-  Array.from({ length: 5 }, (_, index) => {
-    const fill = Math.min(Math.max(rating - index, 0), 1) * 100;
-    return (
-      <span className="ymal-star" key={index}>
-        <span className="ymal-star-empty">★</span>
-        <span className="ymal-star-fill" style={{ width: `${fill}%` }}>
-          ★
-        </span>
-      </span>
-    );
-  });
+const renderStars = (rating) => {
+  const filled = Math.round(rating);
+  return "★".repeat(filled) + "☆".repeat(5 - filled);
+};
 
 export default function YouMayAlsoLike({
   products = YOU_MAY_ALSO_LIKE,
@@ -75,46 +68,47 @@ export default function YouMayAlsoLike({
             return (
               <article className="ymal-card" key={product.id}>
                 {product.badge && (
-  <span
-    className={`ymal-badge ymal-badge-${product.badgeTone || "default"}`}
-  >
-    {product.badge}
-  </span>
-)}
-
-                {hasLink ? (
-                  <a
-                    className="ymal-image"
-                    href={product.link}
-                    aria-label={product.name}
-                  >
-                    {product.image && (
-                      <img src={product.image} alt={product.name} />
-                    )}
-                  </a>
-                ) : (
-                  <div className="ymal-image">
-                    {product.image && (
-                      <img src={product.image} alt={product.name} />
-                    )}
-                  </div>
+                  <span className="ymal-badge">{product.badge}</span>
                 )}
+
+                <div className="ymal-media">
+                  {hasLink ? (
+                    <a
+                      className="ymal-image"
+                      href={product.link}
+                      aria-label={product.name}
+                    >
+                      {product.image && (
+                        <img src={product.image} alt={product.name} />
+                      )}
+                    </a>
+                  ) : (
+                    <div className="ymal-image">
+                      {product.image && (
+                        <img src={product.image} alt={product.name} />
+                      )}
+                    </div>
+                  )}
+                  <CartIconButton
+                    label={`Add ${product.name} to cart`}
+                    onClick={() => onAddToCart(product)}
+                    disabled={!canAdd}
+                  />
+                </div>
 
                 <p className="ymal-name">{product.name}</p>
 
-               {showRating && (
-  <div className="ymal-rating">
-    <span className="ymal-stars">
-      {renderStars(product.rating)}
-    </span>
-    <span className="ymal-rating-value">
-      {product.rating.toFixed(1)}
-    </span>
-    <span className="ymal-review-count">
-      ({product.reviewCount})
-    </span>
-  </div>
-)}
+                {showRating && (
+                  <div className="ymal-rating">
+                    <span className="ymal-stars">
+                      {renderStars(product.rating)}
+                    </span>
+                    <span className="ymal-review-count">
+                      ({product.reviewCount})
+                    </span>
+                  </div>
+                )}
+
                 {product.price !== null && (
                   <div className="ymal-price-row">
                     <span className="ymal-price">
@@ -131,14 +125,7 @@ export default function YouMayAlsoLike({
                   </div>
                 )}
 
-                <button
-                  type="button"
-                  className="ymal-add-btn"
-                  onClick={() => onAddToCart(product)}
-                  disabled={!canAdd}
-                >
-                  ADD TO CART
-                </button>
+                
               </article>
             );
           })}

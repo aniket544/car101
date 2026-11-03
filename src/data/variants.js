@@ -14,7 +14,7 @@ export const VARIANTS = [
     image: ultimateshine,
     price: 1990,
     originalPrice: 2990,
-    link: "",
+    link: "https://car101.in/products/car101-ultimate-shine-shield-dusting-combo",
   },
   {
     id: "duster-1200gsm-towel",
@@ -22,7 +22,7 @@ export const VARIANTS = [
     image: zipzapduster,
     price: 499,
     originalPrice: 1099,
-    link: "",
+    link: "https://car101.in/products/dusting-drying-pro",
   },
   {
     id: "duster-tyre-trim",
@@ -30,7 +30,7 @@ export const VARIANTS = [
     image: tyertrimcoating,
     price: 1325,
     originalPrice: 2998,
-    link: "",
+    link: "https://car101.in/products/duster-tyre-trim",
   },
   {
     id: "duster-ceramic",
@@ -38,7 +38,7 @@ export const VARIANTS = [
     image: ciramiccoating,
     price: 1479,
     originalPrice: 2998,
-    link: "",
+    link: "https://car101.in/products/duster-graphene",
   },
   {
     id: "duster-550gsm-towel",
@@ -46,7 +46,7 @@ export const VARIANTS = [
     image: smalltowel,
     price: 1259,
     originalPrice: 1889,
-    link: "",
+    link: "https://car101.in/products/duster-450-gsm",
   },
   {
     id: "duster-rejuvenator",
@@ -54,6 +54,6 @@ export const VARIANTS = [
     image: rejuvenator,
     price: 1159,
     originalPrice: 1999,
-    link: "",
+    link: "https://car101.in/products/ultimate-zip-zap-combo-duster-rejuvenator",
   },
 ];

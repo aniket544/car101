@@ -367,6 +367,7 @@ img {
 }
 
 .hero-content {
+  padding-top:  30px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -512,7 +513,8 @@ img {
   text-decoration: line-through;
 }
 .discount-tag {
-  padding: 6px 9px;
+  padding: 6px 9px; 
+  margin:6px ;
   background: #15803d;
   color: #fff;
   font-size: 10px;
@@ -3690,5 +3692,85 @@ color: #fff;
   .customer-review-grid {
     grid-column: 1 / -1;
     grid-row: 3;
+  }
+}
+
+
+/* ---------- Cart icon button on product images ---------- */
+.kits-media,
+.ymal-media {
+  position: relative;
+  width: 100%;
+}
+
+.cart-icon-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: #111;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.cart-icon-btn svg {
+  display: block;
+}
+
+.cart-icon-btn:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.cart-icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Cart icon: hidden until card hover, then pops in (desktop only) ---------- */
+.cart-icon-btn {
+  transition:
+    opacity 0.2s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cart-icon-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cart-icon-btn {
+    opacity: 0;
+    transform: scale(0.4);
+    pointer-events: none;
+  }
+
+  .kits-card:hover .cart-icon-btn,
+  .ymal-card:hover .cart-icon-btn,
+  .cart-icon-btn:focus-visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  .kits-card:hover .cart-icon-btn:disabled,
+  .ymal-card:hover .cart-icon-btn:disabled {
+    opacity: 0.4;
+  }
+
+  .kits-card:hover .cart-icon-btn:hover:not(:disabled),
+  .ymal-card:hover .cart-icon-btn:hover:not(:disabled) {
+    transform: scale(1.12);
   }
 }

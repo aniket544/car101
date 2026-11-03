@@ -45,14 +45,7 @@ export default function VariantSelector({ variants = VARIANTS, onAddToCart }) {
                 </div>
               )}
 
-              <button
-                type="button"
-                className="variant-add-btn"
-                onClick={() => onAddToCart(variant)}
-                disabled={!canAdd}
-              >
-                ADD TO CART
-              </button>
+              
             </article>
           );
         })}
