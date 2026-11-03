@@ -68,7 +68,11 @@ export default function YouMayAlsoLike({
             return (
               <article className="ymal-card" key={product.id}>
                 {product.badge && (
-                  <span className="ymal-badge">{product.badge}</span>
+                  <span
+                    className={`ymal-badge ymal-badge-${product.badgeTone || "default"}`}
+                  >
+                    {product.badge}
+                  </span>
                 )}
 
                 <div className="ymal-media">
@@ -124,8 +128,6 @@ export default function YouMayAlsoLike({
                     )}
                   </div>
                 )}
-
-                
               </article>
             );
           })}
