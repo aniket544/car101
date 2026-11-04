@@ -184,9 +184,10 @@ export default function App() {
   }, [noAnim]);
 
   const handleTouchStart = (event) => {
-    touchStartX.current = event.touches[0].clientX;
-    setIsDragging(true);
-  };
+  if (slideDir !== 0) finishSlide(slideDir);
+  touchStartX.current = event.touches[0].clientX;
+  setIsDragging(true);
+};
 
   const handleTouchMove = (event) => {
     if (touchStartX.current === null) return;
@@ -207,18 +208,19 @@ export default function App() {
     }
   };
 
+  const finishSlide = (dir) => {
+  setNoAnim(true);
+  setSlideDir(0);
+  setDragX(0);
+  setActiveImage((prev) =>
+    dir < 0 ? (prev + 1) % images.length : (prev - 1 + images.length) % images.length,
+  );
+};
   const handleSlideEnd = () => {
-    if (slideDir === 0) return;
-    const dir = slideDir;
-    setSlideDir(0);
-    setNoAnim(true);
-    setDragX(0);
-    setActiveImage((prev) =>
-      dir < 0
-        ? (prev + 1) % images.length
-        : (prev - 1 + images.length) % images.length,
-    );
-  };
+  if (slideDir === 0) return;
+  finishSlide(slideDir);
+};
+
   const nextImage = (event) => {
     event?.stopPropagation();
     setActiveImage((previous) =>

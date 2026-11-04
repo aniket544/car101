@@ -270,7 +270,7 @@ img {
   width: 100%;
   height: clamp(300px, 37vw, 490px);
   overflow: hidden;
-  background: #fff;
+  background: transparent;
 }
 
 .hero-img {
@@ -3865,8 +3865,15 @@ color: #fff;
   flex: 0 0 33.3333%;
   width: 33.3333%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+/* ---------- Hero on mobile: no crop, show full image ---------- */
+@media (max-width: 800px) {
+  .hero-slide {
+    object-fit: contain;
+  }
 }
