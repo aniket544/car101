@@ -4061,3 +4061,10 @@ color: #fff;
     grid-row: 1;
   }
 }
+
+
+
+/* ---------- Kits section: full width below the hero (all screen sizes) ---------- */
+.desktop-hero-kits {
+  width: 100%;
+}

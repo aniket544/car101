@@ -397,7 +397,15 @@ const images = selectedVariant
   };
   const handleBuyNow = () => {
   if (selectedVariant) {
-    addVariantToCart(selectedVariant);
+    setCart([
+      {
+        id: selectedVariant.id,
+        name: selectedVariant.name,
+        price: selectedVariant.price,
+        image: selectedVariant.image,
+        quantity: 1,
+      },
+    ]);
     setIsCartOpen(true);
   } else {
     buyNow();
