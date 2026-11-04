@@ -11,11 +11,11 @@ import happyCustomers from "./assets/listing zipzap7.jpg";
 import waterSaved from "./assets/listing zipzap5.jpg";
 import videoShowcase from "./assets/car101-showcase.mp4";
 import { Share2 } from "lucide-react";
-import comparisonImage from './assets/5.jpg';
+import comparisonImage from "./assets/5.jpg";
 import KitsCombos from "./components/KitsCombos";
 import YouMayAlsoLike from "./components/YouMayAlsoLike";
 import FreeShippingBar from "./components/FreeShippingBar";
- 
+
 const PRODUCT = {
   id: "car101-zip-zap-duster",
   name: "CAR 101 Zip-Zap Duster",
@@ -58,14 +58,14 @@ export default function App() {
   const pricePerUnit = PRODUCT.price;
 
   const discountPercentage = Math.round(
-  ((PRODUCT.oldPrice - pricePerUnit) / PRODUCT.oldPrice) * 100
-);
+    ((PRODUCT.oldPrice - pricePerUnit) / PRODUCT.oldPrice) * 100,
+  );
 
-const savingsPerUnit = PRODUCT.oldPrice - pricePerUnit;
+  const savingsPerUnit = PRODUCT.oldPrice - pricePerUnit;
 
-const selectedTotal = pricePerUnit * qty;
+  const selectedTotal = pricePerUnit * qty;
 
-const selectedSavings = savingsPerUnit * qty;
+  const selectedSavings = savingsPerUnit * qty;
   const images = [
     dusterPack,
     ceramicFeature,
@@ -74,7 +74,7 @@ const selectedSavings = savingsPerUnit * qty;
     happyCustomers,
   ];
   const [activeImage, setActiveImage] = useState(0);
-const touchStartX = useRef(null);
+  const touchStartX = useRef(null);
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const cartSubtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -169,32 +169,56 @@ const touchStartX = useRef(null);
       previous === 0 ? images.length - 1 : previous - 1,
     );
   };
-const [dragX, setDragX] = useState(0);
-const [isDragging, setIsDragging] = useState(false);
+  const [dragX, setDragX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [slideDir, setSlideDir] = useState(0);
+  const [noAnim, setNoAnim] = useState(false);
 
-const handleTouchStart = (event) => {
-  touchStartX.current = event.touches[0].clientX;
-  setIsDragging(true);
-};
+  const prevIndex = (activeImage - 1 + images.length) % images.length;
+  const nextIndex = (activeImage + 1) % images.length;
 
-const handleTouchMove = (event) => {
-  if (touchStartX.current === null) return;
-  setDragX(event.touches[0].clientX - touchStartX.current);
-};
+  useEffect(() => {
+    if (!noAnim) return;
+    const frame = requestAnimationFrame(() => setNoAnim(false));
+    return () => cancelAnimationFrame(frame);
+  }, [noAnim]);
 
-const handleTouchEnd = (event) => {
-  if (touchStartX.current === null) return;
-  const distance = event.changedTouches[0].clientX - touchStartX.current;
-  touchStartX.current = null;
-  setIsDragging(false);
-  setDragX(0);
-  if (Math.abs(distance) < 40) return;
-  if (distance < 0) {
-    nextImage();
-  } else {
-    prevImage();
-  }
-};
+  const handleTouchStart = (event) => {
+    touchStartX.current = event.touches[0].clientX;
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (event) => {
+    if (touchStartX.current === null) return;
+    setDragX(event.touches[0].clientX - touchStartX.current);
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX.current === null) return;
+    const width = event.currentTarget.offsetWidth;
+    const distance = dragX;
+    touchStartX.current = null;
+    setIsDragging(false);
+    if (Math.abs(distance) > width * 0.2) {
+      setSlideDir(distance < 0 ? -1 : 1);
+      setDragX(distance < 0 ? -width : width);
+    } else {
+      setDragX(0);
+    }
+  };
+
+  const handleSlideEnd = () => {
+    if (slideDir === 0) return;
+    const dir = slideDir;
+    setSlideDir(0);
+    setNoAnim(true);
+    setDragX(0);
+    setActiveImage((prev) =>
+      dir < 0
+        ? (prev + 1) % images.length
+        : (prev - 1 + images.length) % images.length,
+    );
+  };
   const nextImage = (event) => {
     event?.stopPropagation();
     setActiveImage((previous) =>
@@ -232,30 +256,30 @@ const handleTouchEnd = (event) => {
   };
 
   const addVariantToCart = (variant) => {
-  if (variant.price === null) return;
-  setCart((currentCart) => {
-    const existing = currentCart.find((item) => item.id === variant.id);
-    if (existing) {
-      return currentCart.map((item) =>
-        item.id === variant.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item,
-      );
-    }
-    return [
-      ...currentCart,
-      {
-        id: variant.id,
-        name: variant.name,
-        price: variant.price,
-        image: variant.image,
-        quantity: 1,
-      },
-    ];
-  });
-  setCheckoutMessage(false);
-  setIsCartOpen(true);
-};
+    if (variant.price === null) return;
+    setCart((currentCart) => {
+      const existing = currentCart.find((item) => item.id === variant.id);
+      if (existing) {
+        return currentCart.map((item) =>
+          item.id === variant.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        );
+      }
+      return [
+        ...currentCart,
+        {
+          id: variant.id,
+          name: variant.name,
+          price: variant.price,
+          image: variant.image,
+          quantity: 1,
+        },
+      ];
+    });
+    setCheckoutMessage(false);
+    setIsCartOpen(true);
+  };
 
   const updateCartQuantity = (id, nextQuantity) => {
     if (nextQuantity < 1) {
@@ -354,71 +378,106 @@ const handleTouchEnd = (event) => {
         <section className="hero-section">
           <div className="hero-media-column">
             <div className="hero-image-box">
-            <div className="main-preview-container"
-  onTouchStart={handleTouchStart}
-  onTouchMove={handleTouchMove}
-  onTouchEnd={handleTouchEnd}>
-              <button
-                type="button"
-                className="carousel-arrow prev-arrow"
-                onClick={prevImage}
-                aria-label="Previous image"
+              <div
+                className="main-preview-container"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
               >
-                &#10094;
-              </button>
-              <img
-                src={images[activeImage]}
-                alt={`CAR 101 Zip-Zap Duster product view ${activeImage + 1}`}
-                className="hero-img zoomable-img"
-                  style={{
-    transform: `translateX(${dragX}px)`,
-    transition: isDragging ? "none" : "transform 0.3s ease",}}
-                onClick={() => setIsModalOpen(true)}
-                title="Click to zoom"
-              />
-              <button
-                type="button"
-                className="carousel-arrow next-arrow"
-                onClick={nextImage}
-                aria-label="Next image"
-              >
-                &#10095;
-              </button>
-              <span className="image-count">
-                {activeImage + 1} / {images.length}
-              </span>
-            </div>
-            <div className="thumbnail-track" aria-label="Choose product image">
-              {images.map((img, index) => (
                 <button
-                  key={img}
                   type="button"
-                  className={`thumb-btn ${activeImage === index ? "active-thumb" : ""}`}
-                  onClick={() => setActiveImage(index)}
-                  aria-label={`Show product image ${index + 1}`}
-                  aria-pressed={activeImage === index}
+                  className="carousel-arrow prev-arrow"
+                  onClick={prevImage}
+                  aria-label="Previous image"
                 >
-                  <img src={img} alt="" />
+                  &#10094;
                 </button>
-              ))}
+                <div
+                  className="hero-viewport"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  <div
+                    className={`hero-track${isDragging || noAnim ? " no-anim" : " is-animated"}`}
+                    style={{
+                      transform: `translate3d(calc(-100% / 3 + ${dragX}px), 0, 0)`,
+                    }}
+                    onTransitionEnd={handleSlideEnd}
+                  >
+                    <img
+                      src={images[prevIndex]}
+                      alt=""
+                      aria-hidden="true"
+                      className="hero-slide"
+                      draggable={false}
+                    />
+                    <img
+                      src={images[activeImage]}
+                      alt={`CAR 101 Zip-Zap Duster product view ${activeImage + 1}`}
+                      className="hero-slide zoomable-img"
+                      draggable={false}
+                      onClick={() => setIsModalOpen(true)}
+                      title="Click to zoom"
+                    />
+                    <img
+                      src={images[nextIndex]}
+                      alt=""
+                      aria-hidden="true"
+                      className="hero-slide"
+                      draggable={false}
+                    />
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="carousel-arrow next-arrow"
+                  onClick={nextImage}
+                  aria-label="Next image"
+                >
+                  &#10095;
+                </button>
+                <span className="image-count">
+                  {activeImage + 1} / {images.length}
+                </span>
+              </div>
+              <div
+                className="thumbnail-track"
+                aria-label="Choose product image"
+              >
+                {images.map((img, index) => (
+                  <button
+                    key={img}
+                    type="button"
+                    className={`thumb-btn ${activeImage === index ? "active-thumb" : ""}`}
+                    onClick={() => setActiveImage(index)}
+                    aria-label={`Show product image ${index + 1}`}
+                    aria-pressed={activeImage === index}
+                  >
+                    <img src={img} alt="" />
+                  </button>
+                ))}
+              </div>
             </div>
-            </div>
-            <section className="car101-video-section desktop-hero-video" aria-label="The CAR101 experience">
-            <div className="video-heading">
-              <span>THE CAR101 EXPERIENCE</span>
-              <h2>See, That's The Point.</h2>
-            </div>
-            <div className="car101-video-wrapper">
-              <video
-                className="car101-showcase-video"
-                src={videoShowcase}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-              />
-            </div>
+            <section
+              className="car101-video-section desktop-hero-video"
+              aria-label="The CAR101 experience"
+            >
+              <div className="video-heading">
+                <span>THE CAR101 EXPERIENCE</span>
+                <h2>See, That's The Point.</h2>
+              </div>
+              <div className="car101-video-wrapper">
+                <video
+                  className="car101-showcase-video"
+                  src={videoShowcase}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                />
+              </div>
             </section>
             <div className="desktop-hero-kits">
               <KitsCombos onAddToCart={addVariantToCart} />
@@ -497,39 +556,35 @@ const handleTouchEnd = (event) => {
               and microscopic particles instantly. Clean your vehicle in a
               single stroke without a drop of water.
             </p>
-<VariantSelector
-  selectedId={selectedVariantId}
-  onSelect={(variant) => setSelectedVariantId(variant.id)}
-/>
+            <VariantSelector
+              selectedId={selectedVariantId}
+              onSelect={(variant) => setSelectedVariantId(variant.id)}
+            />
             <div className="price-box">
-  <div className="price-main-row">
-    <span className="current-price">
-      ₹{pricePerUnit.toLocaleString("en-IN")}
-    </span>
+              <div className="price-main-row">
+                <span className="current-price">
+                  ₹{pricePerUnit.toLocaleString("en-IN")}
+                </span>
 
-    <span className="old-price">
-      ₹{PRODUCT.oldPrice.toLocaleString("en-IN")}
-    </span>
+                <span className="old-price">
+                  ₹{PRODUCT.oldPrice.toLocaleString("en-IN")}
+                </span>
 
-    <span className="discount-tag">
-      SAVE {discountPercentage}%
-    </span>
-  </div>
+                <span className="discount-tag">SAVE {discountPercentage}%</span>
+              </div>
 
-  <div className="price-extra-row">
-    <span>
-      Total for {qty} {qty === 1 ? "item" : "items"}
-    </span>
+              <div className="price-extra-row">
+                <span>
+                  Total for {qty} {qty === 1 ? "item" : "items"}
+                </span>
 
-    <strong>
-      ₹{selectedTotal.toLocaleString("en-IN")}
-    </strong>
-  </div>
+                <strong>₹{selectedTotal.toLocaleString("en-IN")}</strong>
+              </div>
 
-  <div className="price-saving">
-    You save ₹{selectedSavings.toLocaleString("en-IN")}
-  </div>
-</div>
+              <div className="price-saving">
+                You save ₹{selectedSavings.toLocaleString("en-IN")}
+              </div>
+            </div>
 
             <div
               id="buy-section"
@@ -559,7 +614,7 @@ const handleTouchEnd = (event) => {
                 </div>
               </div>
               <div className="purchase-actions">
-                 <button
+                <button
                   type="button"
                   className="add-to-cart-btn"
                   onClick={() => addToCart(qty)}
@@ -569,27 +624,18 @@ const handleTouchEnd = (event) => {
                 <button type="button" className="buy-now-btn" onClick={buyNow}>
                   BUY NOW
                 </button>
-               
               </div>
             </div>
 
             <div className="product-features-grid">
-  <div className="product-feature">
-    ✨ Ceramic-Wax Infused
-  </div>
+              <div className="product-feature">✨ Ceramic-Wax Infused</div>
 
-  <div className="product-feature">
-    ⚡ Electrostatic Power
-  </div>
+              <div className="product-feature">⚡ Electrostatic Power</div>
 
-  <div className="product-feature">
-    🇮🇳 Made in India
-  </div>
+              <div className="product-feature">🇮🇳 Made in India</div>
 
-  <div className="product-feature">
-    💧 Waterless Cleaning
-  </div>
-</div>
+              <div className="product-feature">💧 Waterless Cleaning</div>
+            </div>
           </div>
         </section>
 
@@ -654,18 +700,17 @@ const handleTouchEnd = (event) => {
             </article>
           </div>
         </section>
-<section className="comparison-section">
-  <div className="comparison-image-wrapper">
-    <img
-      src={comparisonImage}
-      alt="CAR101 Zip-Zap Duster vs Other Brands comparison"
-      className="comparison-image"
-      loading="lazy"
-    />
-  </div>
-</section>
+        <section className="comparison-section">
+          <div className="comparison-image-wrapper">
+            <img
+              src={comparisonImage}
+              alt="CAR101 Zip-Zap Duster vs Other Brands comparison"
+              className="comparison-image"
+              loading="lazy"
+            />
+          </div>
+        </section>
 
-       
         <section id="rejuvenate" className="section-padded">
           <div className="dark-card grid-2 align-center">
             <div className="padding-box">
@@ -693,8 +738,7 @@ const handleTouchEnd = (event) => {
           </div>
         </section>
 
-        
-        <YouMayAlsoLike onAddToCart={addVariantToCart}/>
+        <YouMayAlsoLike onAddToCart={addVariantToCart} />
 
         <section id="reviews" className="section-padded reviews-section">
           <div className="section-title">
@@ -1002,7 +1046,7 @@ const handleTouchEnd = (event) => {
                   ))}
                 </div>
                 <div className="cart-summary">
-                   <FreeShippingBar subtotal={cartSubtotal} />
+                  <FreeShippingBar subtotal={cartSubtotal} />
                   <div className="subtotal-row">
                     <span>Subtotal</span>
                     <strong>₹{cartSubtotal.toLocaleString("en-IN")}</strong>
@@ -1038,13 +1082,13 @@ const handleTouchEnd = (event) => {
       {showStickyBar && (
         <div className="sticky-purchase-bar">
           <div className="sticky-purchase-inner">
-  <div className="sticky-product-info">
-    <span className="sticky-product-name">{PRODUCT.name}</span>
-    <span className="sticky-product-price">
-      ₹{PRODUCT.price.toLocaleString("en-IN")}
-    </span>
-  </div>
-  <button type="button" className="sticky-buy-btn" onClick={buyNow}>
+            <div className="sticky-product-info">
+              <span className="sticky-product-name">{PRODUCT.name}</span>
+              <span className="sticky-product-price">
+                ₹{PRODUCT.price.toLocaleString("en-IN")}
+              </span>
+            </div>
+            <button type="button" className="sticky-buy-btn" onClick={buyNow}>
               ADD TO CART
             </button>
           </div>
