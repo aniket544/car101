@@ -14,7 +14,8 @@ import { Share2 } from "lucide-react";
 import comparisonImage from './assets/5.jpg';
 import KitsCombos from "./components/KitsCombos";
 import YouMayAlsoLike from "./components/YouMayAlsoLike";
-
+import FreeShippingBar from "./components/FreeShippingBar";
+ 
 const PRODUCT = {
   id: "car101-zip-zap-duster",
   name: "CAR 101 Zip-Zap Duster",
@@ -35,6 +36,7 @@ const readStorage = (key, fallback) => {
 
 export default function App() {
   const [qty, setQty] = useState(1);
+  const [selectedVariantId, setSelectedVariantId] = useState(null);
   const [unread] = useState(3);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -72,7 +74,7 @@ const selectedSavings = savingsPerUnit * qty;
     happyCustomers,
   ];
   const [activeImage, setActiveImage] = useState(0);
-
+const touchStartX = useRef(null);
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const cartSubtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -167,7 +169,32 @@ const selectedSavings = savingsPerUnit * qty;
       previous === 0 ? images.length - 1 : previous - 1,
     );
   };
+const [dragX, setDragX] = useState(0);
+const [isDragging, setIsDragging] = useState(false);
 
+const handleTouchStart = (event) => {
+  touchStartX.current = event.touches[0].clientX;
+  setIsDragging(true);
+};
+
+const handleTouchMove = (event) => {
+  if (touchStartX.current === null) return;
+  setDragX(event.touches[0].clientX - touchStartX.current);
+};
+
+const handleTouchEnd = (event) => {
+  if (touchStartX.current === null) return;
+  const distance = event.changedTouches[0].clientX - touchStartX.current;
+  touchStartX.current = null;
+  setIsDragging(false);
+  setDragX(0);
+  if (Math.abs(distance) < 40) return;
+  if (distance < 0) {
+    nextImage();
+  } else {
+    prevImage();
+  }
+};
   const nextImage = (event) => {
     event?.stopPropagation();
     setActiveImage((previous) =>
@@ -327,7 +354,10 @@ const selectedSavings = savingsPerUnit * qty;
         <section className="hero-section">
           <div className="hero-media-column">
             <div className="hero-image-box">
-            <div className="main-preview-container">
+            <div className="main-preview-container"
+  onTouchStart={handleTouchStart}
+  onTouchMove={handleTouchMove}
+  onTouchEnd={handleTouchEnd}>
               <button
                 type="button"
                 className="carousel-arrow prev-arrow"
@@ -340,6 +370,9 @@ const selectedSavings = savingsPerUnit * qty;
                 src={images[activeImage]}
                 alt={`CAR 101 Zip-Zap Duster product view ${activeImage + 1}`}
                 className="hero-img zoomable-img"
+                  style={{
+    transform: `translateX(${dragX}px)`,
+    transition: isDragging ? "none" : "transform 0.3s ease",}}
                 onClick={() => setIsModalOpen(true)}
                 title="Click to zoom"
               />
@@ -464,8 +497,10 @@ const selectedSavings = savingsPerUnit * qty;
               and microscopic particles instantly. Clean your vehicle in a
               single stroke without a drop of water.
             </p>
-<VariantSelector  onAddToCart={addVariantToCart} />
-
+<VariantSelector
+  selectedId={selectedVariantId}
+  onSelect={(variant) => setSelectedVariantId(variant.id)}
+/>
             <div className="price-box">
   <div className="price-main-row">
     <span className="current-price">
@@ -967,6 +1002,7 @@ const selectedSavings = savingsPerUnit * qty;
                   ))}
                 </div>
                 <div className="cart-summary">
+                   <FreeShippingBar subtotal={cartSubtotal} />
                   <div className="subtotal-row">
                     <span>Subtotal</span>
                     <strong>₹{cartSubtotal.toLocaleString("en-IN")}</strong>
@@ -1002,15 +1038,13 @@ const selectedSavings = savingsPerUnit * qty;
       {showStickyBar && (
         <div className="sticky-purchase-bar">
           <div className="sticky-purchase-inner">
-            <button type="button" className="sticky-buy-btn" onClick={buyNow}>
-              BUY NOW
-            </button>
-
-            <button
-              type="button"
-              className="sticky-cart-btn"
-              onClick={() => addToCart(qty)}
-            >
+  <div className="sticky-product-info">
+    <span className="sticky-product-name">{PRODUCT.name}</span>
+    <span className="sticky-product-price">
+      ₹{PRODUCT.price.toLocaleString("en-IN")}
+    </span>
+  </div>
+  <button type="button" className="sticky-buy-btn" onClick={buyNow}>
               ADD TO CART
             </button>
           </div>
