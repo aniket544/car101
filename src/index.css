@@ -3877,3 +3877,22 @@ color: #fff;
     object-fit: contain;
   }
 }
+/* ---------- Hero on mobile: image full width, same as thumbnails ---------- */
+@media (max-width: 800px) {
+  .hero-slide {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+/* ---------- Hero on mobile: full width, no crop ---------- */
+@media (max-width: 800px) {
+  .main-preview-container {
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .hero-slide {
+    object-fit: contain;
+    object-position: center;
+  }
+}
