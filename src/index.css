@@ -1489,7 +1489,7 @@ color: #fff;
   .hero-section {
     width: calc(100% - 24px);
     padding-top: 20px;
-    gap: 24px;
+    gap: 1px;
   }
 
   .hero-image-box {
@@ -1777,9 +1777,9 @@ color: #fff;
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 440px;
+  min-height: 557px;
   max-height: 540px;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 
@@ -2173,13 +2173,12 @@ color: #fff;
   }
 
   .reviews-section {
-    padding-top: 42px;
-    padding-bottom: 48px;
+    padding-top: 8px;
+    padding-bottom: 9px;
   }
 
   .reviews-community-img {
     min-height: 230px;
-    max-height: 280px;
   }
 
   .reviews-visual-caption {
@@ -2285,7 +2284,7 @@ color: #fff;
   background: #090909;
   color: #ffffff;
   border: 1px solid #333333;
-  border-radius: 0 0 14px 14px;
+  /* border-radius: 0 0 14px 14px; */
 }
 
 .reviews-caption-icon {
@@ -2655,7 +2654,7 @@ color: #fff;
 .product-features-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   margin-top: 16px;
 }
@@ -2664,10 +2663,10 @@ color: #fff;
   min-height: 48px;
   display: flex;
   align-items: center;
-  padding: 10px 12px;
+  padding: 15px 12px;
   border: 1px solid var(--color-border);
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: #fff;
   background: transparent;
@@ -3149,6 +3148,7 @@ color: #fff;
   max-width: var(--page-width);
   margin: 0 auto;
   min-width: 0;
+  padding-top: 10px;
 }
 
 .ymal-header {
@@ -3501,7 +3501,7 @@ color: #fff;
   }
 
   .section-padded {
-    width: calc(100% - 48px);
+    width: calc(100% - 15px);
   }
 
   .promo-banner {
@@ -3894,5 +3894,170 @@ color: #fff;
   .hero-slide {
     object-fit: contain;
     object-position: center;
+  }
+}
+/* ---------- Hero on mobile: no arrows, swipe only ---------- */
+@media (max-width: 800px) {
+  .carousel-arrow {
+    display: none;
+  }
+}
+
+/* ---------- Hero on desktop: show full image, no crop ---------- */
+@media (min-width: 801px) {
+  .hero-slide {
+    object-fit: contain;
+  }
+}
+/* ---------- Zoom modal: use more of the screen, less side padding ---------- */
+.image-modal-overlay {
+  padding: 0;
+}
+
+.image-modal-content {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+.modal-image {
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+}
+/* ---------- Hero on desktop: fill the whole image box ---------- */
+@media (min-width: 801px) {
+  .hero-slide {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+/* ---------- Middle gallery (replaces the comparison image) ---------- */
+.mid-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--color-background);
+}
+
+.mid-gallery-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding-top: 10px;
+}
+
+/* ---------- Middle gallery: spacing between images ---------- */
+.mid-gallery {
+  gap: 6px;
+}
+@media (min-width: 801px) {
+  .mid-gallery {
+    padding-top: 10px;
+    padding-bottom: 4px;
+  }
+}
+
+/* ---------- Hero on desktop: full image, no crop ---------- */
+@media (min-width: 801px) {
+  .hero-slide {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* ---------- Hero on desktop: box follows image shape (no crop, no side gap) ---------- */
+@media (min-width: 801px) {
+  .main-preview-container {
+    height: auto;
+  }
+}
+
+
+/* ---------- Variant pills ---------- */
+.pack-selector {
+  width: 100%;
+  margin: 16px 0;
+}
+
+.pack-label {
+  margin: 0 0 10px;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.pack-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pack-option {
+  padding: 10px 14px;
+  border: 1px solid #666;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.pack-option:hover {
+  border-color: #fff;
+}
+
+.pack-option.is-selected {
+  background: #fff;
+  border-color: #fff;
+  color: #111;
+  font-weight: 600;
+}
+
+
+/* ---------- Kits & Combos: full width row on desktop ---------- */
+@media (min-width: 1024px) {
+  .desktop-hero-kits {
+    width: 100%;
+  }
+
+  .kits-section {
+    padding: 32px 40px;
+  }
+
+  .kits-inner {
+    max-width: none;
+  }
+
+  .kits-card {
+    flex-basis: calc((100% - 24px) / 4);
+    padding: 14px;
+  }
+}
+
+/* ---------- Kits & Combos: span full grid row on desktop ---------- */
+@media (min-width: 1024px) {
+  .desktop-hero-kits {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+/* ---------- Desktop: purchase stays on the right, Kits as full row below ---------- */
+@media (min-width: 1024px) {
+  .desktop-hero-kits {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .hero-content {
+    grid-column: 2;
+    grid-row: 1;
   }
 }

@@ -15,6 +15,9 @@ import comparisonImage from "./assets/5.jpg";
 import KitsCombos from "./components/KitsCombos";
 import YouMayAlsoLike from "./components/YouMayAlsoLike";
 import FreeShippingBar from "./components/FreeShippingBar";
+import MidGallery from "./components/MidGallery";
+import { HERO_DESKTOP_IMAGES, HERO_MOBILE_IMAGES } from "./data/heroImages";
+import { VARIANTS } from "./data/variants";
 
 const PRODUCT = {
   id: "car101-zip-zap-duster",
@@ -37,6 +40,18 @@ const readStorage = (key, fallback) => {
 export default function App() {
   const [qty, setQty] = useState(1);
   const [selectedVariantId, setSelectedVariantId] = useState(null);
+  const selectedVariant = VARIANTS.find((variant) => variant.id === selectedVariantId) ?? null;
+
+  const displayPrice = selectedVariant ? selectedVariant.price : PRODUCT.price;
+const displayOldPrice = selectedVariant
+  ? selectedVariant.originalPrice
+  : PRODUCT.oldPrice;
+
+const selectedTotal = displayPrice * qty;
+const selectedSavings = (displayOldPrice - displayPrice) * qty;
+const discountPercentage = displayOldPrice
+  ? Math.round(((displayOldPrice - displayPrice) / displayOldPrice) * 100)
+  : 0;
   const [unread] = useState(3);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,24 +70,50 @@ export default function App() {
   const [customerReviews, setCustomerReviews] = useState(() =>
     readStorage("car101-customer-reviews", []),
   );
-  const pricePerUnit = PRODUCT.price;
+  const pricePerUnit = displayPrice;
 
-  const discountPercentage = Math.round(
-    ((PRODUCT.oldPrice - pricePerUnit) / PRODUCT.oldPrice) * 100,
+  // const discountPercentage = Math.round(
+  //   ((PRODUCT.oldPrice - pricePerUnit) / PRODUCT.oldPrice) * 100,
+  // );
+
+  const savingsPerUnit = displayOldPrice - pricePerUnit;
+
+  // const selectedTotal = pricePerUnit * qty;
+
+  // const selectedSavings = savingsPerUnit * qty;
+
+
+  
+
+  const [isMobile, setIsMobile] = useState(
+    () => window.matchMedia("(max-width: 800px)").matches,
   );
 
-  const savingsPerUnit = PRODUCT.oldPrice - pricePerUnit;
+  const [heroRatio, setHeroRatio] = useState("1 / 1");
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 800px)");
+    const handleChange = (event) => setIsMobile(event.matches);
+    query.addEventListener("change", handleChange);
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
+  const baseImages = [
+  dusterPack,
+  ceramicFeature,
+  beforeAfterClean,
+  rechargeSpray,
+  happyCustomers,
+];
 
-  const selectedTotal = pricePerUnit * qty;
 
-  const selectedSavings = savingsPerUnit * qty;
-  const images = [
-    dusterPack,
-    ceramicFeature,
-    beforeAfterClean,
-    rechargeSpray,
-    happyCustomers,
-  ];
+
+
+
+
+
+const images = selectedVariant
+  ? [selectedVariant.image, ...baseImages]
+  : baseImages;
+  const midImages = isMobile ? HERO_MOBILE_IMAGES : HERO_DESKTOP_IMAGES;
   const [activeImage, setActiveImage] = useState(0);
   const touchStartX = useRef(null);
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -81,6 +122,7 @@ export default function App() {
     0,
   );
 
+  
   useEffect(() => {
     try {
       window.localStorage.setItem("car101-cart", JSON.stringify(cart));
@@ -173,6 +215,9 @@ export default function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [slideDir, setSlideDir] = useState(0);
   const [noAnim, setNoAnim] = useState(false);
+  const trackRef = useRef(null);
+  const touchStartTime = useRef(0);
+  const dragXRef = useRef(0);
 
   const prevIndex = (activeImage - 1 + images.length) % images.length;
   const nextIndex = (activeImage + 1) % images.length;
@@ -184,42 +229,60 @@ export default function App() {
   }, [noAnim]);
 
   const handleTouchStart = (event) => {
-  if (slideDir !== 0) finishSlide(slideDir);
-  touchStartX.current = event.touches[0].clientX;
-  setIsDragging(true);
-};
+    if (slideDir !== 0) finishSlide(slideDir);
+    touchStartX.current = event.touches[0].clientX;
+    touchStartTime.current = performance.now();
+    dragXRef.current = 0;
+    setIsDragging(true);
+  };
 
   const handleTouchMove = (event) => {
     if (touchStartX.current === null) return;
-    setDragX(event.touches[0].clientX - touchStartX.current);
+    const dx = event.touches[0].clientX - touchStartX.current;
+    dragXRef.current = dx;
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(calc(-100% / 3 + ${dx}px), 0, 0)`;
+    }
   };
 
   const handleTouchEnd = (event) => {
     if (touchStartX.current === null) return;
     const width = event.currentTarget.offsetWidth;
-    const distance = dragX;
+    const dx = dragXRef.current;
+    const duration = Math.max(performance.now() - touchStartTime.current, 1);
+    const velocity = dx / duration;
     touchStartX.current = null;
     setIsDragging(false);
-    if (Math.abs(distance) > width * 0.2) {
-      setSlideDir(distance < 0 ? -1 : 1);
-      setDragX(distance < 0 ? -width : width);
+
+    const shouldCommit =
+      Math.abs(dx) > width * 0.2 ||
+      (Math.abs(velocity) > 0.4 && Math.abs(dx) > 24);
+
+    if (shouldCommit) {
+      setSlideDir(dx < 0 ? -1 : 1);
+      setDragX(dx < 0 ? -width : width);
     } else {
       setDragX(0);
+      if (trackRef.current) {
+        trackRef.current.style.transform = "translate3d(calc(-100% / 3), 0, 0)";
+      }
     }
   };
 
   const finishSlide = (dir) => {
-  setNoAnim(true);
-  setSlideDir(0);
-  setDragX(0);
-  setActiveImage((prev) =>
-    dir < 0 ? (prev + 1) % images.length : (prev - 1 + images.length) % images.length,
-  );
-};
+    setNoAnim(true);
+    setSlideDir(0);
+    setDragX(0);
+    setActiveImage((prev) =>
+      dir < 0
+        ? (prev + 1) % images.length
+        : (prev - 1 + images.length) % images.length,
+    );
+  };
   const handleSlideEnd = () => {
-  if (slideDir === 0) return;
-  finishSlide(slideDir);
-};
+    if (slideDir === 0) return;
+    finishSlide(slideDir);
+  };
 
   const nextImage = (event) => {
     event?.stopPropagation();
@@ -332,6 +395,14 @@ export default function App() {
     setCheckoutMessage(true);
     setIsCartOpen(true);
   };
+  const handleBuyNow = () => {
+  if (selectedVariant) {
+    addVariantToCart(selectedVariant);
+    setIsCartOpen(true);
+  } else {
+    buyNow();
+  }
+};
 
   return (
     <div className="car101-container">
@@ -382,6 +453,15 @@ export default function App() {
             <div className="hero-image-box">
               <div
                 className="main-preview-container"
+                style={
+                  isMobile
+                    ? undefined
+                    : {
+                        aspectRatio: heroRatio,
+                        height: "auto",
+                        maxHeight: "570px",
+                      }
+                }
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -401,6 +481,7 @@ export default function App() {
                   onTouchEnd={handleTouchEnd}
                 >
                   <div
+                    ref={trackRef}
                     className={`hero-track${isDragging || noAnim ? " no-anim" : " is-animated"}`}
                     style={{
                       transform: `translate3d(calc(-100% / 3 + ${dragX}px), 0, 0)`,
@@ -418,6 +499,11 @@ export default function App() {
                       src={images[activeImage]}
                       alt={`CAR 101 Zip-Zap Duster product view ${activeImage + 1}`}
                       className="hero-slide zoomable-img"
+                      onLoad={(event) =>
+                        setHeroRatio(
+                          `${event.currentTarget.naturalWidth} / ${event.currentTarget.naturalHeight}`,
+                        )
+                      }
                       draggable={false}
                       onClick={() => setIsModalOpen(true)}
                       title="Click to zoom"
@@ -481,10 +567,10 @@ export default function App() {
                 />
               </div>
             </section>
-            <div className="desktop-hero-kits">
+          </div>
+           <div className="desktop-hero-kits">
               <KitsCombos onAddToCart={addVariantToCart} />
             </div>
-          </div>
           {menuOpen && (
             <div className="menu-backdrop" onClick={() => setMenuOpen(false)}>
               <aside
@@ -558,10 +644,13 @@ export default function App() {
               and microscopic particles instantly. Clean your vehicle in a
               single stroke without a drop of water.
             </p>
-            <VariantSelector
-              selectedId={selectedVariantId}
-              onSelect={(variant) => setSelectedVariantId(variant.id)}
-            />
+           <VariantSelector
+  selectedId={selectedVariantId}
+  onSelect={(variant) => {
+    setSelectedVariantId(variant ? variant.id : null);
+    setActiveImage(0);
+  }}
+/>
             <div className="price-box">
               <div className="price-main-row">
                 <span className="current-price">
@@ -569,7 +658,7 @@ export default function App() {
                 </span>
 
                 <span className="old-price">
-                  ₹{PRODUCT.oldPrice.toLocaleString("en-IN")}
+                  ₹{displayOldPrice.toLocaleString("en-IN")}
                 </span>
 
                 <span className="discount-tag">SAVE {discountPercentage}%</span>
@@ -619,11 +708,16 @@ export default function App() {
                 <button
                   type="button"
                   className="add-to-cart-btn"
-                  onClick={() => addToCart(qty)}
+                  onClick={() =>
+  selectedVariant ? addVariantToCart(selectedVariant) : addToCart(qty)
+}
                 >
                   ADD TO CART
                 </button>
-                <button type="button" className="buy-now-btn" onClick={buyNow}>
+                <button type="button" className="buy-now-btn" onClick={() => {
+  if (selectedVariant) addVariantToCart(selectedVariant);
+  buyNow();
+}}>
                   BUY NOW
                 </button>
               </div>
@@ -637,6 +731,13 @@ export default function App() {
               <div className="product-feature">🇮🇳 Made in India</div>
 
               <div className="product-feature">💧 Waterless Cleaning</div>
+              <div className="product-feature">
+    🛡️ Scratch-Free Cleaning
+  </div>
+
+  <div className="product-feature">
+    ♻️ Easily Washable &amp; Reusable
+  </div>
             </div>
           </div>
         </section>
@@ -662,83 +763,8 @@ export default function App() {
         <div className="mobile-flow-kits">
           <KitsCombos onAddToCart={addVariantToCart} />
         </div>
-        <section id="features" className="section-padded">
-          <div className="section-title">
-            <span className="tag">Engineering &amp; Tech</span>
-            <h2>Built For Auto-Obsessed Minds</h2>
-            <p>
-              Professional-grade detailing technology brought right to your home
-              garage.
-            </p>
-          </div>
-          <div className="grid-2">
-            <article className="card">
-              <img
-                src={ceramicFeature}
-                alt="CAR 101 ceramic-wax infused duster fibres"
-                loading="lazy"
-              />
-              <div className="card-body">
-                <h3>Ceramic-Wax Infused Fibers</h3>
-                <p>
-                  Micro-wax infused fibres help lift dust while adding an
-                  instant gloss to your vehicle's paintwork.
-                </p>
-              </div>
-            </article>
-            <article className="card">
-              <img
-                src={beforeAfterClean}
-                alt="CAR 101 one-swipe cleaning product visual"
-                loading="lazy"
-              />
-              <div className="card-body">
-                <h3>One-Swipe Clean Technology</h3>
-                <p>
-                  Clear away everyday road dust, pollen, and debris with a
-                  simple sweep—without needing a bucket of water.
-                </p>
-              </div>
-            </article>
-          </div>
-        </section>
-        <section className="comparison-section">
-          <div className="comparison-image-wrapper">
-            <img
-              src={comparisonImage}
-              alt="CAR101 Zip-Zap Duster vs Other Brands comparison"
-              className="comparison-image"
-              loading="lazy"
-            />
-          </div>
-        </section>
 
-        <section id="rejuvenate" className="section-padded">
-          <div className="dark-card grid-2 align-center">
-            <div className="padding-box">
-              <span className="tag">Recharge &amp; Reuse</span>
-              <h2 className="text-white">Revive Your Duster</h2>
-              <p className="text-gray">
-                Maintain your duster according to the product care instructions.
-                Clean the fibre pouch when needed and let it air-dry fully
-                before the next use.
-              </p>
-              <ul className="checklist">
-                <li>✓ Reusable fibre pouch</li>
-                <li>✓ Simple care routine</li>
-                <li>✓ Made for repeated everyday use</li>
-              </ul>
-            </div>
-            <div className="img-center">
-              <img
-                src={rechargeSpray}
-                alt="CAR 101 Zip-Zap recharge spray"
-                className="max-h-350"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </section>
+        <MidGallery images={midImages} />
 
         <YouMayAlsoLike onAddToCart={addVariantToCart} />
 
@@ -1081,21 +1107,27 @@ export default function App() {
         </div>
       )}
 
-      {showStickyBar && (
-        <div className="sticky-purchase-bar">
-          <div className="sticky-purchase-inner">
-            <div className="sticky-product-info">
-              <span className="sticky-product-name">{PRODUCT.name}</span>
-              <span className="sticky-product-price">
-                ₹{PRODUCT.price.toLocaleString("en-IN")}
-              </span>
-            </div>
-            <button type="button" className="sticky-buy-btn" onClick={buyNow}>
-              ADD TO CART
-            </button>
-          </div>
-        </div>
-      )}
+     {showStickyBar && (
+  <div className="sticky-purchase-bar">
+    <div className="sticky-purchase-inner">
+      <button
+        type="button"
+        className="sticky-cart-btn"
+       onClick={handleBuyNow}
+      >
+        ADD TO CART
+      </button>
+
+      <button
+        type="button"
+        className="sticky-buy-btn"
+        onClick={handleBuyNow}
+      >
+        BUY NOW
+      </button>
+    </div>
+  </div>
+)}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { VARIANTS } from "../data/variants";
 
-const formatPrice = (value) => `₹${value.toLocaleString("en-IN")}`;
+export const BASE_PRODUCT_LABEL = "Zip Zap Duster (Pack of 1)";
 
 export default function VariantSelector({
   variants = VARIANTS,
@@ -8,59 +8,33 @@ export default function VariantSelector({
   onSelect,
 }) {
   return (
-    <section className="variant-selector" aria-label="Choose a variant">
-      <h3 className="variant-title">Choose Your Variant</h3>
-      <div className="variant-grid">
+    <section className="pack-selector" aria-label="Choose a variant">
+      <p className="pack-label">Variant</p>
+
+      <div className="pack-options" role="radiogroup" aria-label="Variant options">
+        <button
+          type="button"
+          role="radio"
+          aria-checked={selectedId === null}
+          className={`pack-option${selectedId === null ? " is-selected" : ""}`}
+          onClick={() => onSelect && onSelect(null)}
+        >
+          {BASE_PRODUCT_LABEL}
+        </button>
+
         {variants.map((variant) => {
-          const hasLink = Boolean(variant.link);
           const isSelected = selectedId === variant.id;
           return (
-            <article
-              className={`variant-card${isSelected ? " is-selected" : ""}`}
+            <button
               key={variant.id}
+              type="button"
+              role="radio"
+              aria-checked={isSelected}
+              className={`pack-option${isSelected ? " is-selected" : ""}`}
+              onClick={() => onSelect && onSelect(variant)}
             >
-              {hasLink ? (
-                <a
-                  className="variant-image-link"
-                  href={variant.link}
-                  aria-label={variant.name}
-                >
-                  {variant.image && (
-                    <img src={variant.image} alt={variant.name} loading="lazy" />
-                  )}
-                </a>
-              ) : (
-                <div className="variant-image-link">
-                  {variant.image && (
-                    <img src={variant.image} alt={variant.name} loading="lazy" />
-                  )}
-                </div>
-              )}
-
-              <p className="variant-name">{variant.name}</p>
-
-              {variant.price !== null && (
-                <div className="variant-price-row">
-                  <span className="variant-price">
-                    {formatPrice(variant.price)}
-                  </span>
-                  {variant.originalPrice !== null && (
-                    <span className="variant-old-price">
-                      {formatPrice(variant.originalPrice)}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              <button
-                type="button"
-                className={`variant-add-btn${isSelected ? " is-selected" : ""}`}
-                onClick={() => onSelect && onSelect(variant)}
-                aria-pressed={isSelected}
-              >
-                {isSelected ? "SELECTED" : "SELECT"}
-              </button>
-            </article>
+              {variant.name}
+            </button>
           );
         })}
       </div>
