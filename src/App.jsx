@@ -714,10 +714,7 @@ const images = selectedVariant
                 >
                   ADD TO CART
                 </button>
-                <button type="button" className="buy-now-btn" onClick={() => {
-  if (selectedVariant) addVariantToCart(selectedVariant);
-  buyNow();
-}}>
+                <button type="button" className="buy-now-btn" onClick={handleBuyNow}>
                   BUY NOW
                 </button>
               </div>
