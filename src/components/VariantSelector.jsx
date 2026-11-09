@@ -15,6 +15,16 @@ export default function VariantSelector({
             <article
               className={`variant-card${isSelected ? " is-selected" : ""}`}
               key={variant.id}
+              role="button"
+              tabIndex={0}
+              aria-pressed={isSelected}
+              onClick={() => onSelect && onSelect(variant)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onSelect && onSelect(variant);
+                }
+              }}
             >
               <div className="variant-image-link">
                 {variant.image && (
@@ -23,15 +33,6 @@ export default function VariantSelector({
               </div>
 
               <p className="variant-name">{variant.name}</p>
-
-              <button
-                type="button"
-                className={`variant-add-btn${isSelected ? " is-selected" : ""}`}
-                onClick={() => onSelect && onSelect(variant)}
-                aria-pressed={isSelected}
-              >
-                {isSelected ? "SELECTED" : "SELECT"}
-              </button>
             </article>
           );
         })}

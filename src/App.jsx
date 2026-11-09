@@ -111,9 +111,9 @@ const discountPercentage = displayOldPrice
 
 
 
-const images = selectedVariant
-  ? [selectedVariant.image, ...baseImages]
-  : baseImages;
+const images = Array.from(
+  new Set(selectedVariant ? [selectedVariant.image, ...baseImages] : baseImages),
+);
   const midImages = isMobile ? HERO_MOBILE_IMAGES : HERO_DESKTOP_IMAGES;
   const [activeImage, setActiveImage] = useState(0);
   const touchStartX = useRef(null);
