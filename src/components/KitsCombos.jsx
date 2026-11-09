@@ -16,7 +16,7 @@ export default function KitsCombos({ kits = KITS, onAddToCart }) {
   };
 
   return (
-    <section className="kits-section" aria-labelledby="kits-title">
+    <section id="kits" className="kits-section" aria-labelledby="kits-title">
       <div className="kits-inner">
         <div className="kits-header">
           <div>
@@ -95,8 +95,8 @@ export default function KitsCombos({ kits = KITS, onAddToCart }) {
         </div>
 
         <a className="kits-view-all" href={KITS_PAGE_LINK}>
-          View all kits &amp; combos ↗
-        </a>
+  View all kits &amp; combos ↗
+</a>
       </div>
     </section>
   );

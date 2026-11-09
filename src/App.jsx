@@ -18,6 +18,7 @@ import FreeShippingBar from "./components/FreeShippingBar";
 import MidGallery from "./components/MidGallery";
 import { HERO_DESKTOP_IMAGES, HERO_MOBILE_IMAGES } from "./data/heroImages";
 import { VARIANTS } from "./data/variants";
+import FaqSection from "./components/FaqSection";
 
 const PRODUCT = {
   id: "car101-zip-zap-duster",
@@ -576,9 +577,6 @@ const images = selectedVariant
               </div>
             </section>
           </div>
-           <div className="desktop-hero-kits">
-              <KitsCombos onAddToCart={addVariantToCart} />
-            </div>
           {menuOpen && (
             <div className="menu-backdrop" onClick={() => setMenuOpen(false)}>
               <aside
@@ -655,7 +653,7 @@ const images = selectedVariant
            <VariantSelector
   selectedId={selectedVariantId}
   onSelect={(variant) => {
-    setSelectedVariantId(variant ? variant.id : null);
+    setSelectedVariantId(variant.id);
     setActiveImage(0);
   }}
 />
@@ -772,6 +770,8 @@ const images = selectedVariant
         <MidGallery images={midImages} />
 
         <YouMayAlsoLike onAddToCart={addVariantToCart} />
+
+        <FaqSection />
 
         <section id="reviews" className="section-padded reviews-section">
           <div className="section-title">
@@ -1120,7 +1120,7 @@ const images = selectedVariant
         className="sticky-cart-btn"
        onClick={handleBuyNow}
       >
-        ADD TO CART
+       BUY NOW
       </button>
 
       <button
@@ -1128,7 +1128,7 @@ const images = selectedVariant
         className="sticky-buy-btn"
         onClick={handleBuyNow}
       >
-        BUY NOW
+        ADD TO CART
       </button>
     </div>
   </div>

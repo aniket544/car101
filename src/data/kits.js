@@ -7,8 +7,7 @@ import tyertrimcoating from "../assets/image3.png";
 import smalltowel from "../assets/image5.png";
 import rejuvenator from "../assets/image6.png";
 
-export const KITS_PAGE_LINK = "https://car101.in/collections/combos";
-
+export const KITS_PAGE_LINK = "#kits";
 export const KITS = [
   {
     id: "zip-zap-tyre-trim",
