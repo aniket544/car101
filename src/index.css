@@ -126,10 +126,11 @@ img {
 
 .logo {
   display: block;
-  width: 160px;
-  height: auto;
+  width: 64px;
+  height: 64px;
   max-width: 100%;
   object-fit: contain;
+  filter: invert(1);
 }
 
 .logo-container:focus-visible {
@@ -1474,13 +1475,13 @@ color: #fff;
   }
 
   .logo-container {
-    min-width: 112px;
-    width: 112px;
+    min-width: 58px;
+    width: 58px;
   }
 
   .logo {
-    width: 210px;
-    height: auto;
+    width: 52px;
+    height: 52px;
     max-width: 100%;
   }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import BellToggle from "./components/BellToggle";
 import PeekRating from "./components/PeekRating";
 import VariantSelector from "./components/VariantSelector";
-import logo from "./assets/CAR101-Logo-w.png";
+import logo from "./assets/CAR-101-Logo-Square.png";
 import dusterPack from "./assets/1.jpg";
 import ceramicFeature from "./assets/listing zipzap1.jpg";
 import beforeAfterClean from "./assets/listing zipzap3.jpg";
