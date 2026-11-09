@@ -19,6 +19,7 @@ import MidGallery from "./components/MidGallery";
 import { HERO_DESKTOP_IMAGES, HERO_MOBILE_IMAGES } from "./data/heroImages";
 import { VARIANTS } from "./data/variants";
 import FaqSection from "./components/FaqSection";
+import ProductDetailsSection from "./components/ProductDetailsSection";
 
 const PRODUCT = {
   id: "car101-zip-zap-duster",
@@ -745,6 +746,11 @@ const images = Array.from(
           </div>
         </section>
 
+        
+
+        <div className="product-details-mobile">
+          <ProductDetailsSection />
+        </div>
         <section className="car101-video-section mobile-flow-video">
           <div className="video-heading">
             <span>THE CAR101 EXPERIENCE</span>
@@ -763,6 +769,9 @@ const images = Array.from(
             />
           </div>
         </section>
+        <div className="product-details-desktop">
+          <ProductDetailsSection />
+        </div>
         <div className="mobile-flow-kits">
           <KitsCombos onAddToCart={addVariantToCart} />
         </div>
