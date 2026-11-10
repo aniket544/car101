@@ -377,6 +377,7 @@ img {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .12em;
+  padding-top: 15px;
 }
 
 .rating-box {
@@ -4122,19 +4123,10 @@ color: #fff;
   width: 100%;
   height: auto;
   margin: 0;
-  padding-top: 10px;
+  padding-top: 1px;
 }
 
 /* ---------- Middle gallery: spacing between images ---------- */
-.mid-gallery {
-  gap: 6px;
-}
-@media (min-width: 801px) {
-  .mid-gallery {
-    padding-top: 10px;
-    padding-bottom: 4px;
-  }
-}
 
 /* ---------- Hero on desktop: full image, no crop ---------- */
 @media (min-width: 801px) {
