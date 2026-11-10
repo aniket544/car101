@@ -81,7 +81,7 @@ const PACKS = [
 
 export const VARIANTS = PACKS.map(({ packSize, image }) => ({
   id: `pack-${packSize}`,
-  name: `Zip Zap Duster (Pack of ${packSize})`,
+  name: `Zip Zap (Pack of ${packSize})`,
   packSize,
   price: UNIT_PRICE * packSize,
   originalPrice: OLD_UNIT_PRICE * packSize,

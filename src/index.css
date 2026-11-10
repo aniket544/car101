@@ -1707,10 +1707,6 @@ color: #fff;
   color: #07140a;
 }
 
-.variant-card:nth-child(3) .variant-tile-badge {
-  background: #f4770a;
-}
-
 .variant-tile-saving {
   background: #f8f1dc;
   color: #17130d;
@@ -1737,6 +1733,51 @@ color: #fff;
 
   .variant-name {
     font-size: 13px;
+  }
+}
+
+/* Variant labels sit on the product image: badge top-left, saving bottom-right. */
+.variant-image-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.variant-image-wrap .variant-tile-tags {
+  position: absolute !important;
+  inset: 0;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none;
+}
+
+.variant-image-wrap .variant-tile-badge,
+.variant-image-wrap .variant-tile-saving {
+  position: absolute;
+  z-index: 2;
+}
+
+/* .variant-image-wrap .most-popular-badge {
+  top: 8px;
+  right: 8px;
+} */
+
+.variant-image-wrap .variant-tile-saving {
+  right: 8px;
+  bottom: 8px;
+}
+
+@media (max-width: 520px) {
+  .variant-image-wrap .variant-tile-badge {
+    top: 10px;
+    right: 5px;
+  }
+
+  .variant-image-wrap .variant-tile-saving {
+    right: 5px;
+    bottom: 5px;
   }
 }
 
@@ -4922,6 +4963,51 @@ color: #fff;
   }
 }
 
+/* Final variant label placement: overlay the image cleanly. */
+.variant-image-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.variant-image-wrap .variant-tile-tags {
+  position: absolute !important;
+  inset: 0;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none;
+}
+
+.variant-image-wrap .variant-tile-badge,
+.variant-image-wrap .variant-tile-saving {
+  position: absolute;
+  z-index: 2;
+}
+
+.variant-image-wrap .variant-tile-badge {
+  top: 8px;
+  left: 8px;
+}
+
+.variant-image-wrap .variant-tile-saving {
+  right: 8px;
+  bottom: 8px;
+}
+
+@media (max-width: 520px) {
+  .variant-image-wrap .variant-tile-badge {
+    top: 5px;
+    left: 5px;
+  }
+
+  .variant-image-wrap .variant-tile-saving {
+    right: 5px;
+    bottom: 5px;
+  }
+}
+
 /* Responsive video quality: preserve the source aspect ratio at every viewport. */
 .car101-video-wrapper {
   aspect-ratio: 4 / 5 !important;
@@ -5050,10 +5136,6 @@ color: #fff;
 .variant-tile-badge {
   background: #25a844;
   color: #07140a;
-}
-
-.variant-card:nth-child(3) .variant-tile-badge {
-  background: #f4770a;
 }
 
 .variant-tile-saving {
@@ -5226,4 +5308,622 @@ color: #fff;
     height: 60px;
     transform: scale(2.4);
   }
+}
+
+/* Pack 2 only: compact in-image Most Popular badge. */
+/* Premium Most Popular badge — Pack 2 only */
+
+/* .variant-image-wrap .most-popular-badge {
+  position: absolute;
+  top: 22px;
+  left: -38px;
+  z-index: 5;
+
+  width: 145px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: rotate(-45deg);
+  transform-origin: center;
+
+  background: linear-gradient(
+    180deg,
+    #ef4444 0%,
+    #c81717 55%,
+    #991b1b 100%
+  );
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  border-top: 2px solid #ff7777;
+  border-bottom: 2px solid #8b1010;
+
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+} */
+
+/* Flame icon */
+.variant-image-wrap .popular-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* Disable any old ribbon pseudo-elements */
+/* .variant-image-wrap .most-popular-badge::before,
+.variant-image-wrap .most-popular-badge::after {
+  content: "";
+  position: absolute;
+  top: 0;
+
+  width: 0;
+  height: 0;
+
+  border-top: 14px solid #991b1b;
+  border-bottom: 14px solid #991b1b;
+} */
+/* Mobile */
+/* @media (max-width: 520px) {
+  .variant-image-wrap .most-popular-badge {
+    top: 8px;
+    right: 8px;
+
+    min-height: 24px;
+    padding: 0 7px;
+
+    font-size: 8px;
+    gap: 4px;
+  } 
+
+  .variant-image-wrap .popular-icon {
+    font-size: 11px;
+  }
+}
+
+
+/* Minimal corner ribbon — Pack of 2 only */
+
+/* .variant-image-wrap .most-popular-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+
+  width: 112px;
+  height: 112px;
+
+  display: block;
+  overflow: hidden;
+
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+
+  color: transparent;
+  font-size: 0;
+} */
+
+/* The actual diagonal ribbon */
+/* .variant-image-wrap .most-popular-badge::before {
+  content: "MOST POPULAR";
+
+  position: absolute;
+  top: 22px;
+  left: -30px;
+
+  width: 125px;
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: rotate(-45deg);
+
+  background: #c91f26;
+  color: #fff;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+
+  border: 0;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.18);
+} */
+
+/* Remove old decorative tails */
+/* .variant-image-wrap .most-popular-badge::after {
+  display: none;
+  content: none;
+}
+
+@media (max-width: 520px) {
+  .variant-image-wrap .most-popular-badge {
+    width: 90px;
+    height: 90px;
+  }
+
+  .variant-image-wrap .most-popular-badge::before {
+    top: 17px;
+    left: -28px;
+
+    width: 105px;
+    height: 22px;
+
+    font-size: 7px;
+  }
+} */
+
+
+/* MOST POPULAR — diagonal corner ribbon */
+
+/* .variant-image-wrap .most-popular-badge {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+
+  width: 125px !important;
+  height: 125px !important;
+
+  overflow: hidden !important;
+  z-index: 5 !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  font-size: 0 !important;
+  transform: none !important;
+}
+
+/* Actual diagonal strip */
+/* .variant-image-wrap .most-popular-badge::before {
+  content: "MOST POPULAR" !important;
+
+  position: absolute !important;
+  top: 25px !important;
+  left: -35px !important;
+
+  width: 145px !important;
+  height: 25px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  transform: rotate(-45deg) !important;
+  transform-origin: center !important;
+
+  writing-mode: horizontal-tb !important;
+  white-space: nowrap !important;
+
+  background: #c91f26 !important;
+  color: #ffffff !important;
+
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1 !important;
+
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+} */
+
+/* Remove old ribbon decorations */
+/* .variant-image-wrap .most-popular-badge::after {
+  content: none !important;
+  display: none !important;
+}
+
+@media (max-width: 520px) {
+  .variant-image-wrap .most-popular-badge {
+    width: 105px !important;
+    height: 105px !important;
+  }
+
+  .variant-image-wrap .most-popular-badge::before {
+    top: 20px !important;
+    left: -32px !important;
+
+    width: 120px !important;
+    height: 22px !important;
+
+    font-size: 8px !important;
+  }
+}
+ */
+
+
+ 
+/* Full-width promotional band above variant name */
+
+.variant-promo-band {
+  display: flex;
+  
+  justify-content: center;
+align-items: center;
+  width: 100%;
+  min-height: 28px;
+  box-sizing: border-box;
+
+  margin-top: 8px;
+  margin-bottom: 2px;
+  padding: 6px 8px;
+
+  border-radius: 4px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Pack of 2 — Most Popular */
+.variant-promo-band.most-popular-band {
+  background:rgb(1, 101, 1);
+  color: #ffffff;
+}
+
+/* Pack of 4 — Best Value */
+.variant-promo-band.best-value-band {
+  background: #d78706;
+  color: #17130d;
+}
+
+/* Product name */
+.variant-name {
+  margin: 4px 0;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+@media (min-width: 640px) {
+  .variant-name {
+    font-size: 13px;
+  }
+
+  .variant-promo-band {
+    min-height: 30px;
+    font-size: 11px;
+  }
+}
+
+
+/* Keep promotional space equal in every card */
+.variant-promo-slot {
+  width: 100%;
+  min-height: 30px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+/* Promotional band */
+.variant-promo-band {
+  width: 100%;
+  min-height: 28px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 8px;
+  border-radius: 4px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* Pack 2 */
+.most-popular-band {
+  background: #008000;
+  color: #ffffff;
+}
+
+/* Pack 4 */
+.best-value-band {
+  background: #f59e0b;
+  color: #17130d;
+}
+
+/* Product name */
+.variant-name {
+  margin: 1px 0 1px;
+  min-height: 32px;
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Product price */
+.variant-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  margin-bottom: 8px;
+}
+
+.current-price {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.original-price {
+  font-size: 11px;
+  color: #999999;
+  text-decoration: line-through;
+}
+
+@media (max-width: 520px) {
+  .variant-promo-slot {
+    min-height: 28px;
+  }
+
+  .variant-name {
+    font-size: 11px;
+    min-height: 30px;
+  }
+
+  .current-price {
+    font-size: 13px;
+  }
+}
+
+
+/* Compact variant card content spacing */
+
+.variant-promo-slot {
+  min-height: 28px;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.variant-promo-band {
+  min-height: 26px;
+  padding: 4px 8px;
+}
+
+/* Reduce space between promo tag and product name */
+.variant-name {
+  margin: 4px 0 2px;
+  min-height: 0;
+  line-height: 1.3;
+}
+
+/* Reduce space between name and price */
+.variant-price {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  gap: 5px;
+}
+
+/* Keep card content naturally packed */
+.variant-card {
+  justify-content: flex-start;
+  gap: 0;
+}
+
+
+
+
+
+/* ---------- Pack selector (reference design, Zip Zap content) ---------- */
+.pk-select {
+  align-self: stretch;
+  width: 100%;
+  margin: 16px 0;
+}
+
+.pk-title {
+  margin: 0 0 12px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.pk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.pk-tile {
+  position: relative;
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px 14px 12px;
+  border: 1px solid #3b3b3b;
+  border-radius: 6px;
+  background: #0f0f0f;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.pk-tile:hover {
+  border-color: #6b6b6b;
+}
+
+.pk-tile:focus-visible {
+  outline: 2px solid #c9a24a;
+  outline-offset: 3px;
+}
+
+.pk-tile.is-selected {
+  border-color: #c9a24a;
+  background: #1d1608;
+}
+
+.pk-tags {
+  position: absolute;
+  top: -11px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pk-save {
+  padding: 4px 9px;
+  border-radius: 3px;
+  background: #f5ecd7;
+  color: #111;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pk-band {
+  padding: 4px 9px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pk-band-popular {
+  background: #2e8b47;
+}
+
+.pk-band-value {
+  background: #e8772e;
+}
+
+.pk-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.pk-image {
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.pk-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.pk-info {
+  min-width: 0;
+}
+
+.pk-name {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.pk-sub {
+  margin: 3px 0 0;
+  color: #b8b8b8;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pk-prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.pk-price {
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.pk-old {
+  color: var(--color-muted);
+  font-size: 12px;
+  text-decoration: line-through;
+}
+
+@media (max-width: 380px) {
+  .pk-row {
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+  .pk-image {
+    width: 48px;
+    height: 48px;
+  }
+  .pk-price {
+    font-size: 15px;
+  }
+}
+/* ---------- Pack selector: dark panel wrapper (reference) ---------- */
+.pk-select {
+  padding: 16px;
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.pk-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pk-list {
+  gap: 12px;
+}
+
+.pk-tile {
+  padding: 12px;
+  border-radius: 8px;
+  border-color: #2e2e2e;
+}
+
+.pk-tile.is-selected {
+  border-color: #c9a24a;
+  background: #1d1608;
+}
+
+.pk-tile:hover {
+  border-color: #555;
+}
+
+.pk-tile.is-selected:hover {
+  border-color: #c9a24a;
 }

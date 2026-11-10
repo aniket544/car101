@@ -560,15 +560,6 @@ const images = Array.from(
                   </button>
                 ))}
               </div>
-              <div className="desktop-variant-selector">
-                <VariantSelector
-                  selectedId={selectedVariantId}
-                  onSelect={(variant) => {
-                    setSelectedVariantId(variant.id);
-                    setActiveImage(0);
-                  }}
-                />
-              </div>
             </div>
             <section
               className="car101-video-section desktop-hero-video"
