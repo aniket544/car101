@@ -20,6 +20,10 @@ import { HERO_DESKTOP_IMAGES, HERO_MOBILE_IMAGES } from "./data/heroImages";
 import { VARIANTS } from "./data/variants";
 import FaqSection from "./components/FaqSection";
 import ProductDetailsSection from "./components/ProductDetailsSection";
+import featureIcon1 from "./assets/icon_1.svg";
+import featureIcon2 from "./assets/icon2.svg";
+import featureIcon3 from "./assets/icon3.svg";
+import featureIcon4 from "./assets/icon4.svg";
 
 const PRODUCT = {
   id: "car101-zip-zap-duster",
@@ -556,6 +560,15 @@ const images = Array.from(
                   </button>
                 ))}
               </div>
+              <div className="desktop-variant-selector">
+                <VariantSelector
+                  selectedId={selectedVariantId}
+                  onSelect={(variant) => {
+                    setSelectedVariantId(variant.id);
+                    setActiveImage(0);
+                  }}
+                />
+              </div>
             </div>
             <section
               className="car101-video-section desktop-hero-video"
@@ -651,13 +664,15 @@ const images = Array.from(
               and microscopic particles instantly. Clean your vehicle in a
               single stroke without a drop of water.
             </p>
-           <VariantSelector
+           <div className="mobile-variant-selector">
+             <VariantSelector
   selectedId={selectedVariantId}
   onSelect={(variant) => {
     setSelectedVariantId(variant.id);
     setActiveImage(0);
   }}
 />
+           </div>
             <div className="price-box">
               <div className="price-main-row">
                 <span className="current-price">
@@ -727,7 +742,66 @@ const images = Array.from(
               </div>
             </div>
 
+            <section
+              className="car101-video-section desktop-inline-video"
+              aria-label="The CAR101 experience"
+            >
+              <div className="video-heading">
+                <span>THE CAR101 EXPERIENCE</span>
+                <h2>See, That's The Point.</h2>
+              </div>
+              <div className="car101-video-wrapper">
+                <video
+                  className="car101-showcase-video"
+                  src={videoShowcase}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                />
+              </div>
+            </section>
+
             <div className="product-features-grid">
+              <div className="product-feature-icons">
+                <div className="product-feature">
+                  <img
+                    src={featureIcon1}
+                    alt="Ceramic-Wax Infused"
+                    width="72"
+                    height="72"
+                  />
+                  <span>Ceramic-Wax Infused</span>
+                </div>
+                <div className="product-feature">
+                  <img
+                    src={featureIcon2}
+                    alt="Electrostatic Power"
+                    width="72"
+                    height="72"
+                  />
+                  <span>Electrostatic Power</span>
+                </div>
+                <div className="product-feature">
+                  <img
+                    src={featureIcon3}
+                    alt="Waterless Cleaning"
+                    width="72"
+                    height="72"
+                  />
+                  <span>Waterless Cleaning</span>
+                </div>
+                <div className="product-feature">
+                  <img
+                    src={featureIcon4}
+                    alt="Made in India"
+                    width="72"
+                    height="72"
+                  />
+                  <span>Made in India</span>
+                </div>
+              </div>
               <div className="product-feature">✨ Ceramic-Wax Infused</div>
 
               <div className="product-feature">⚡ Electrostatic Power</div>
