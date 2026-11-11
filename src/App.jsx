@@ -289,6 +289,29 @@ const images = Array.from(
     if (slideDir === 0) return;
     finishSlide(slideDir);
   };
+  const nudgeTimer = useRef(null);
+const hasNudged = useRef(false);
+
+useEffect(() => {
+  if (hasNudged.current || images.length < 2) return undefined;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return undefined;
+  }
+
+  const startTimer = setTimeout(() => {
+    const width = trackRef.current?.parentElement?.offsetWidth ?? 0;
+    if (!width) return;
+
+    hasNudged.current = true;
+    setDragX(-width * 0.3);
+    nudgeTimer.current = setTimeout(() => setDragX(0), 900);
+  }, 1500);
+
+  return () => {
+    clearTimeout(startTimer);
+    clearTimeout(nudgeTimer.current);
+  };
+}, [images.length]);
 
   const nextImage = (event) => {
     event?.stopPropagation();

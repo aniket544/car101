@@ -113,7 +113,7 @@ const sections = [
 ];
 
 export default function ProductDetailsSection() {
-  const [openSection, setOpenSection] = useState("details");
+  const [openSection, setOpenSection] = useState(null);
 
   return (
     <section className="product-details-section" aria-labelledby="product-details-title">

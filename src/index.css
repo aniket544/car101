@@ -527,7 +527,7 @@ img {
 .current-price {
   color: #fff;
   font-size: clamp(32px, 3.1vw, 42px);
-  font-weight: 900;
+  font-weight: 1200;
   letter-spacing: -0.04em;
 }
 
@@ -5668,7 +5668,7 @@ align-items: center;
 }
 
 .current-price {
-  font-size: 14px;
+  font-size: 25px;
   font-weight: 800;
   color: #ffffff;
 }
@@ -5690,7 +5690,8 @@ align-items: center;
   }
 
   .current-price {
-    font-size: 13px;
+    font-size: 23px;
+
   }
 }
 
@@ -5926,4 +5927,18 @@ align-items: center;
 
 .pk-tile.is-selected:hover {
   border-color: #c9a24a;
+}
+
+/* ---------- Right column: purchase box and pack selector fill the full column width ---------- */
+.hero-content {
+  align-items: stretch;
+}
+
+.hero-content > .purchase-box,
+.hero-content > .pk-select,
+.purchase-box .pk-select {
+  width: 100%;
+  max-width: none;
+  align-self: stretch;
+  box-sizing: border-box;
 }
