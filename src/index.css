@@ -2815,8 +2815,8 @@ color: #fff;
 
 .car101-showcase-video {
   width: 100%;
-  height: 1000px;
-  display: blok;
+  height: 100%;
+  display: block;
   object-fit: cover;
 }
 
@@ -3362,7 +3362,8 @@ color: #fff;
     font-size: 12px;
   }
   .kits-view-all {
-    margin-right: 24px;
+    margin-right: 24px; 
+    
   }
 }
 
@@ -3658,7 +3659,7 @@ color: #fff;
 /* ---------- Spacing fix: Kits & You May Also Like (no extra vertical gaps) ---------- */
 .kits-section,
 .ymal-section {
-  margin: 0;
+  margin: 0px;
   padding: 0 0 0 16px;
 }
 
@@ -5941,4 +5942,152 @@ align-items: center;
   max-width: none;
   align-self: stretch;
   box-sizing: border-box;
+}
+
+/* ---------- Space below Kits "View all" button (before the next image section) ---------- */
+.mobile-flow-kits {
+  padding-bottom: 15px;
+}
+
+.kits-view-all {
+  margin-bottom: 0;
+}
+
+
+
+/* Feature labels under the icons */
+.product-feature-icons .product-feature span {
+  display: block;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.product-feature-icons .product-feature img {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Left-column video: fixed height on PC and tablet so its bottom lines up with the feature icons */
+@media (min-width: 801px) {
+  .desktop-hero-video .car101-video-wrapper {
+    aspect-ratio: auto !important;
+    height: 380px;
+  }
+}
+/* ---------- Cart discount milestones (English, clean layout) ---------- */
+.cart-discount {
+  margin-bottom: 16px;
+}
+
+.cart-discount-text {
+  margin: 0 0 10px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cart-discount-track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #3a3a3a;
+}
+
+.cart-discount-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-primary);
+  transition: width 0.4s ease;
+}
+
+.cart-discount-marks {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.cart-discount-mark {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  text-align: center;
+  color: #8a8a8a;
+}
+
+.cart-discount-mark strong {
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cart-discount-mark span {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.cart-discount-mark.is-reached {
+  color: var(--color-primary);
+}
+
+.cart-discount-row,
+.cart-summary .subtotal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.cart-discount-row {
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Left-column video: force height on PC/tablet (inner video fills the box) */
+@media (min-width: 801px) {
+  .desktop-hero-video .car101-video-wrapper {
+    height: 380px !important;
+    min-height: 380px !important;
+    aspect-ratio: auto !important;
+  }
+
+  .desktop-hero-video .car101-showcase-video {
+    height: 100% !important;
+    object-fit: cover;
+  }
+}
+/* Tablet: left-column video taller than on PC */
+@media (min-width: 801px) and (max-width: 1100px) {
+  .desktop-hero-video .car101-video-wrapper {
+    height: 520px !important;
+    min-height: 520px !important;
+  }
+}
+
+/* Price box: stop "You save" from overlapping the price row on tablet */
+/* Tablet: "You save" label with the amount stacked beneath it, on the right of the price row */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .price-box .price-saving {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.2;
+  }
+
+  .price-box .price-saving .price-saving-label {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .price-box .price-saving .price-saving-amount {
+    font-size: 16px;
+    font-weight: 800;
+  }
 }

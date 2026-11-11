@@ -25,11 +25,12 @@ import featureIcon2 from "./assets/icon2.svg";
 import featureIcon3 from "./assets/icon3.svg";
 import featureIcon4 from "./assets/icon4.svg";
 
+
 const PRODUCT = {
   id: "car101-zip-zap-duster",
   name: "CAR 101 Zip-Zap Duster",
   description: "Ceramic-Wax Infused Car Duster Kit",
-  price: 849,
+  price: 826.77,
   oldPrice: 1499,
   image: dusterPack,
 };
@@ -46,18 +47,19 @@ const readStorage = (key, fallback) => {
 export default function App() {
   const [qty, setQty] = useState(1);
   const [selectedVariantId, setSelectedVariantId] = useState(null);
-  const selectedVariant = VARIANTS.find((variant) => variant.id === selectedVariantId) ?? null;
+  const selectedVariant =
+    VARIANTS.find((variant) => variant.id === selectedVariantId) ?? null;
 
   const displayPrice = selectedVariant ? selectedVariant.price : PRODUCT.price;
-const displayOldPrice = selectedVariant
-  ? selectedVariant.originalPrice
-  : PRODUCT.oldPrice;
+  const displayOldPrice = selectedVariant
+    ? selectedVariant.originalPrice
+    : PRODUCT.oldPrice;
 
-const selectedTotal = displayPrice * qty;
-const selectedSavings = (displayOldPrice - displayPrice) * qty;
-const discountPercentage = displayOldPrice
-  ? Math.round(((displayOldPrice - displayPrice) / displayOldPrice) * 100)
-  : 0;
+  const selectedTotal = displayPrice * qty;
+  const selectedSavings = (displayOldPrice - displayPrice) * qty;
+  const discountPercentage = displayOldPrice
+    ? Math.round(((displayOldPrice - displayPrice) / displayOldPrice) * 100)
+    : 0;
   const [unread] = useState(3);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,9 +90,6 @@ const discountPercentage = displayOldPrice
 
   // const selectedSavings = savingsPerUnit * qty;
 
-
-  
-
   const [isMobile, setIsMobile] = useState(
     () => window.matchMedia("(max-width: 800px)").matches,
   );
@@ -103,22 +102,18 @@ const discountPercentage = displayOldPrice
     return () => query.removeEventListener("change", handleChange);
   }, []);
   const baseImages = [
-  dusterPack,
-  ceramicFeature,
-  beforeAfterClean,
-  rechargeSpray,
-  happyCustomers,
-];
+    dusterPack,
+    ceramicFeature,
+    beforeAfterClean,
+    rechargeSpray,
+    happyCustomers,
+  ];
 
-
-
-
-
-
-
-const images = Array.from(
-  new Set(selectedVariant ? [selectedVariant.image, ...baseImages] : baseImages),
-);
+  const images = Array.from(
+    new Set(
+      selectedVariant ? [selectedVariant.image, ...baseImages] : baseImages,
+    ),
+  );
   const midImages = isMobile ? HERO_MOBILE_IMAGES : HERO_DESKTOP_IMAGES;
   const [activeImage, setActiveImage] = useState(0);
   const touchStartX = useRef(null);
@@ -128,7 +123,6 @@ const images = Array.from(
     0,
   );
 
-  
   useEffect(() => {
     try {
       window.localStorage.setItem("car101-cart", JSON.stringify(cart));
@@ -290,28 +284,28 @@ const images = Array.from(
     finishSlide(slideDir);
   };
   const nudgeTimer = useRef(null);
-const hasNudged = useRef(false);
+  const hasNudged = useRef(false);
 
-useEffect(() => {
-  if (hasNudged.current || images.length < 2) return undefined;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return undefined;
-  }
+  useEffect(() => {
+    if (hasNudged.current || images.length < 2) return undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return undefined;
+    }
 
-  const startTimer = setTimeout(() => {
-    const width = trackRef.current?.parentElement?.offsetWidth ?? 0;
-    if (!width) return;
+    const startTimer = setTimeout(() => {
+      const width = trackRef.current?.parentElement?.offsetWidth ?? 0;
+      if (!width) return;
 
-    hasNudged.current = true;
-    setDragX(-width * 0.3);
-    nudgeTimer.current = setTimeout(() => setDragX(0), 900);
-  }, 1500);
+      hasNudged.current = true;
+      setDragX(-width * 0.2);
+      nudgeTimer.current = setTimeout(() => setDragX(0), 450);
+    }, 450);
 
-  return () => {
-    clearTimeout(startTimer);
-    clearTimeout(nudgeTimer.current);
-  };
-}, [images.length]);
+    return () => {
+      clearTimeout(startTimer);
+      clearTimeout(nudgeTimer.current);
+    };
+  }, [images.length]);
 
   const nextImage = (event) => {
     event?.stopPropagation();
@@ -425,21 +419,21 @@ useEffect(() => {
     setIsCartOpen(true);
   };
   const handleBuyNow = () => {
-  if (selectedVariant) {
-    setCart([
-      {
-        id: selectedVariant.id,
-        name: selectedVariant.name,
-        price: selectedVariant.price,
-        image: selectedVariant.image,
-        quantity: 1,
-      },
-    ]);
-    setIsCartOpen(true);
-  } else {
-    buyNow();
-  }
-};
+    if (selectedVariant) {
+      setCart([
+        {
+          id: selectedVariant.id,
+          name: selectedVariant.name,
+          price: selectedVariant.price,
+          image: selectedVariant.image,
+          quantity: 1,
+        },
+      ]);
+      setIsCartOpen(true);
+    } else {
+      buyNow();
+    }
+  };
 
   return (
     <div className="car101-container">
@@ -678,15 +672,15 @@ useEffect(() => {
               and microscopic particles instantly. Clean your vehicle in a
               single stroke without a drop of water.
             </p>
-           <div className="mobile-variant-selector">
-             <VariantSelector
-  selectedId={selectedVariantId}
-  onSelect={(variant) => {
-    setSelectedVariantId(variant.id);
-    setActiveImage(0);
-  }}
-/>
-           </div>
+            <div className="mobile-variant-selector">
+              <VariantSelector
+                selectedId={selectedVariantId}
+                onSelect={(variant) => {
+                  setSelectedVariantId(variant.id);
+                  setActiveImage(0);
+                }}
+              />
+            </div>
             <div className="price-box">
               <div className="price-main-row">
                 <span className="current-price">
@@ -709,8 +703,11 @@ useEffect(() => {
               </div>
 
               <div className="price-saving">
-                You save ₹{selectedSavings.toLocaleString("en-IN")}
-              </div>
+  <span className="price-saving-label">You save</span>
+  <span className="price-saving-amount">
+    ₹{selectedSavings.toLocaleString("en-IN")}
+  </span>
+</div>
             </div>
 
             <div
@@ -745,12 +742,18 @@ useEffect(() => {
                   type="button"
                   className="add-to-cart-btn"
                   onClick={() =>
-  selectedVariant ? addVariantToCart(selectedVariant) : addToCart(qty)
-}
+                    selectedVariant
+                      ? addVariantToCart(selectedVariant)
+                      : addToCart(qty)
+                  }
                 >
                   ADD TO CART
                 </button>
-                <button type="button" className="buy-now-btn" onClick={handleBuyNow}>
+                <button
+                  type="button"
+                  className="buy-now-btn"
+                  onClick={handleBuyNow}
+                >
                   BUY NOW
                 </button>
               </div>
@@ -778,63 +781,27 @@ useEffect(() => {
             </section>
 
             <div className="product-features-grid">
-              <div className="product-feature-icons">
-                <div className="product-feature">
-                  <img
-                    src={featureIcon1}
-                    alt="Ceramic-Wax Infused"
-                    width="72"
-                    height="72"
-                  />
-                  <span>Ceramic-Wax Infused</span>
-                </div>
-                <div className="product-feature">
-                  <img
-                    src={featureIcon2}
-                    alt="Electrostatic Power"
-                    width="72"
-                    height="72"
-                  />
-                  <span>Electrostatic Power</span>
-                </div>
-                <div className="product-feature">
-                  <img
-                    src={featureIcon3}
-                    alt="Waterless Cleaning"
-                    width="72"
-                    height="72"
-                  />
-                  <span>Waterless Cleaning</span>
-                </div>
-                <div className="product-feature">
-                  <img
-                    src={featureIcon4}
-                    alt="Made in India"
-                    width="72"
-                    height="72"
-                  />
-                  <span>Made in India</span>
-                </div>
-              </div>
-              <div className="product-feature">✨ Ceramic-Wax Infused</div>
-
-              <div className="product-feature">⚡ Electrostatic Power</div>
-
-              <div className="product-feature">🇮🇳 Made in India</div>
-
-              <div className="product-feature">💧 Waterless Cleaning</div>
-              <div className="product-feature">
-    🛡️ Scratch-Free Cleaning
+  <div className="product-feature-icons">
+    <div className="product-feature">
+      <img src={featureIcon1} alt="" width="72" height="72" />
+      <span>Ceramic-Wax Infused</span>
+    </div>
+    <div className="product-feature">
+      <img src={featureIcon2} alt="" width="72" height="72" />
+      <span>Electrostatic Power</span>
+    </div>
+    <div className="product-feature">
+      <img src={featureIcon3} alt="" width="72" height="72" />
+      <span>Waterless Cleaning</span>
+    </div>
+    <div className="product-feature">
+      <img src={featureIcon4} alt="" width="72" height="72" />
+      <span>Made in India</span>
+    </div>
   </div>
-
-  <div className="product-feature">
-    ♻️ Easily Washable &amp; Reusable
-  </div>
-            </div>
+</div>
           </div>
         </section>
-
-        
 
         <div className="product-details-mobile">
           <ProductDetailsSection />
@@ -899,13 +866,10 @@ useEffect(() => {
             </div>
             <div className="customer-reviews-heading">
               <div>
-                <span className="tag">COMMUNITY VOICES</span>
+                
                 <h3>What drivers are saying</h3>
               </div>
-              <span className="review-count-pill">
-                {customerReviews.length}{" "}
-                {customerReviews.length === 1 ? "REVIEW" : "REVIEWS"}
-              </span>
+              
             </div>
             {customerReviews.length > 0 ? (
               <div className="customer-review-grid">
@@ -1209,27 +1173,27 @@ useEffect(() => {
         </div>
       )}
 
-     {showStickyBar && (
-  <div className="sticky-purchase-bar">
-    <div className="sticky-purchase-inner">
-      <button
-        type="button"
-        className="sticky-cart-btn"
-       onClick={handleBuyNow}
-      >
-       BUY NOW
-      </button>
+      {showStickyBar && (
+        <div className="sticky-purchase-bar">
+          <div className="sticky-purchase-inner">
+            <button
+              type="button"
+              className="sticky-cart-btn"
+              onClick={handleBuyNow}
+            >
+              BUY NOW
+            </button>
 
-      <button
-        type="button"
-        className="sticky-buy-btn"
-        onClick={handleBuyNow}
-      >
-        ADD TO CART
-      </button>
-    </div>
-  </div>
-)}
+            <button
+              type="button"
+              className="sticky-buy-btn"
+              onClick={handleBuyNow}
+            >
+              ADD TO CART
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -70,7 +70,7 @@ import pack2Image from "../assets/packof2.png";
 import pack4Image from "../assets/packof4.png";
 
 // Pack options. Price = UNIT_PRICE x pack. originalPrice = OLD_UNIT_PRICE x pack.
-export const UNIT_PRICE = 849;
+export const UNIT_PRICE = 826.77;
 export const OLD_UNIT_PRICE = 1499;
 
 const PACKS = [
