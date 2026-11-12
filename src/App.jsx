@@ -684,7 +684,7 @@ export default function App() {
               </span>
             </div>
             
-            <p className="subtitle">Ceramic-Wax Infused Car Duster Kit</p>
+            <p className="subtitle">Ceramic-Wax Infused Car Duster</p>
             <p className="description">
               Engineered for absolute car fanatics. Fights against dust, dirt,
               and microscopic particles instantly. Clean your vehicle in a
