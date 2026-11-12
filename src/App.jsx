@@ -19,7 +19,10 @@ import MidGallery from "./components/MidGallery";
 import { HERO_DESKTOP_IMAGES, HERO_MOBILE_IMAGES } from "./data/heroImages";
 import { VARIANTS } from "./data/variants";
 import FaqSection from "./components/FaqSection";
-import ProductDetailsSection from "./components/ProductDetailsSection";
+import ProductDetailsSection, {
+  ProductDetailsHeading,
+  ProductDetailsAccordion,
+} from "./components/ProductDetailsSection";
 import featureIcon1 from "./assets/icon_1.svg";
 import featureIcon2 from "./assets/icon2.svg";
 import featureIcon3 from "./assets/icon3.svg";
@@ -789,10 +792,11 @@ export default function App() {
                 </div>
               </div>
             </div>
+             
           </div>
         </section>
 
-        <div className="product-details-mobile">
+                    <div className="pd-heading-desktop">
           <ProductDetailsSection />
         </div>
         <section className="car101-video-section mobile-flow-video">
@@ -813,9 +817,7 @@ export default function App() {
             />
           </div>
         </section>
-        <div className="product-details-desktop">
-          <ProductDetailsSection />
-        </div>
+        
         <div className="mobile-flow-kits">
           <KitsCombos onAddToCart={addVariantToCart} />
         </div>

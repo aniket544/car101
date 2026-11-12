@@ -5738,7 +5738,7 @@ align-items: center;
 .pk-select {
   align-self: stretch;
   width: 100%;
-  margin: 16px 0;
+  margin-top: 16px;
 }
 
 .pk-title {
@@ -5894,7 +5894,7 @@ align-items: center;
 }
 /* ---------- Pack selector: dark panel wrapper (reference) ---------- */
 .pk-select {
-  padding: 16px;
+  padding: 16px 16px 8px 16px;
   background: #111;
   border: 1px solid #2a2a2a;
   border-radius: 10px;
@@ -6247,3 +6247,25 @@ align-items: center;
     align-items: flex-start;
   }
 }
+
+
+/* Desktop and tablet: Product Details sits in the right column, under the feature icons */
+/* Product Details: PC block sits in the right column; mobile block sits below the hero */
+@media (max-width: 1023px) {
+  .product-details-desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-details-mobile {
+    display: none;
+  }
+
+  .hero-content .product-details-desktop {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+  }
+}
+

@@ -112,45 +112,62 @@ const sections = [
   },
 ];
 
-export default function ProductDetailsSection() {
+// Full-width heading only (used above the video area on PC)
+export function ProductDetailsHeading() {
+  return (
+    <div className="product-details-heading">
+      <span className="product-details-kicker">KNOW YOUR DUSTER</span>
+      <h2>Product details</h2>
+      <p>Everything you need to get the best performance from your CAR101 Zip-Zap Duster.</p>
+    </div>
+  );
+}
+
+// Accordion only (used in the right column on PC, and below the hero on mobile)
+export function ProductDetailsAccordion() {
   const [openSection, setOpenSection] = useState(null);
 
   return (
-    <section className="product-details-section" aria-labelledby="product-details-title">
-      <div className="product-details-heading">
-        <span className="product-details-kicker">KNOW YOUR DUSTER</span>
-        <h2 id="product-details-title">Product details</h2>
-        <p>Everything you need to get the best performance from your CAR101 Zip-Zap Duster.</p>
-      </div>
+    <div className="product-details-accordion">
+      {sections.map(({ id, eyebrow, title, icon: Icon, content }) => {
+        const isOpen = openSection === id;
+        return (
+          <div className={`product-details-panel${isOpen ? " is-open" : ""}`} key={id}>
+            <button
+              type="button"
+              className="product-details-trigger"
+              aria-expanded={isOpen}
+              aria-controls={`product-details-${id}`}
+              onClick={() => setOpenSection(isOpen ? "" : id)}
+            >
+              <span className="product-details-trigger-icon"><HugeiconsIcon icon={Icon} size={21} color="currentColor" strokeWidth={1.8} /></span>
+              <span className="product-details-trigger-copy">
+                <small>{eyebrow}</small>
+                <strong>{title}</strong>
+              </span>
+              <span className="product-details-chevron" aria-hidden="true">+</span>
+            </button>
+            {isOpen && (
+              <div className="product-details-content" id={`product-details-${id}`}>
+                {content}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
-      <div className="product-details-accordion">
-        {sections.map(({ id, eyebrow, title, icon: Icon, content }) => {
-          const isOpen = openSection === id;
-          return (
-            <div className={`product-details-panel${isOpen ? " is-open" : ""}`} key={id}>
-              <button
-                type="button"
-                className="product-details-trigger"
-                aria-expanded={isOpen}
-                aria-controls={`product-details-${id}`}
-                onClick={() => setOpenSection(isOpen ? "" : id)}
-              >
-                <span className="product-details-trigger-icon"><HugeiconsIcon icon={Icon} size={21} color="currentColor" strokeWidth={1.8} /></span>
-                <span className="product-details-trigger-copy">
-                  <small>{eyebrow}</small>
-                  <strong>{title}</strong>
-                </span>
-                <span className="product-details-chevron" aria-hidden="true">+</span>
-              </button>
-              {isOpen && (
-                <div className="product-details-content" id={`product-details-${id}`}>
-                  {content}
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+// Heading + accordion together (used on mobile and tablet)
+export default function ProductDetailsSection() {
+  return (
+    <section className="product-details-section" aria-labelledby="product-details-title">
+      <ProductDetailsHeading />
+      <ProductDetailsAccordion />
     </section>
   );
 }
+
+// Named export too, so either import style works
+export { ProductDetailsSection };
