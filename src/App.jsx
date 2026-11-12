@@ -686,9 +686,7 @@ export default function App() {
             
             <p className="subtitle">Ceramic-Wax Infused Car Duster</p>
             <p className="description">
-              Engineered for absolute car fanatics. Fights against dust, dirt,
-              and microscopic particles instantly. Clean your vehicle in a
-              single stroke without a drop of water.
+               Built with ceramic (SiO2) wax-coated fibres and a comfortable grip, this duster turns your daily car cleanup into a quick job. One easy swipe lifts and traps dust, never scratching your paint, leaving it smooth and spotless. Simple to use and proudly made in India.
             </p>
             <div className="mobile-variant-selector">
               <VariantSelector
@@ -699,34 +697,7 @@ export default function App() {
                 }}
               />
             </div>
-            <div className="price-box">
-              <div className="price-main-row">
-                <span className="current-price">
-                  ₹{pricePerUnit.toLocaleString("en-IN")}
-                </span>
-
-                <span className="old-price">
-                  ₹{displayOldPrice.toLocaleString("en-IN")}
-                </span>
-
-                {/* <span className="discount-tag">SAVE {discountPercentage}%</span> */}
-              </div>
-
-              <div className="price-extra-row">
-                <span>
-                  Total for {qty} {qty === 1 ? "item" : "items"}
-                </span>
-
-                <strong>₹{selectedTotal.toLocaleString("en-IN")}</strong>
-              </div>
-
-              <div className="price-saving">
-                <span className="price-saving-label">You save</span>
-                <span className="price-saving-amount">
-                  ₹{selectedSavings.toLocaleString("en-IN")}
-                </span>
-              </div>
-            </div>
+            
 
             <div
               id="buy-section"
