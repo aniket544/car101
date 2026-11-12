@@ -3,8 +3,8 @@ import { VARIANTS } from "../data/variants";
 const formatPrice = (value) => `₹${value.toLocaleString("en-IN")}`;
 
 const BANDS = {
-  2: { key: "popular", label: "Most Popular" },
-  4: { key: "value", label: "Best Value" },
+  "pack-2": { key: "popular", label: "Most Popular" },
+  "combo-1200gsm-towel": { key: "value", label: "Super Saver" },
 };
 
 export default function VariantSelector({
@@ -23,8 +23,11 @@ export default function VariantSelector({
       <div className="pk-list" role="radiogroup" aria-label="Pack options">
         {variants.map((variant) => {
           const isSelected = variant.id === activeId;
-          const band = BANDS[variant.packSize];
-          const savings = variant.originalPrice - variant.price;
+          const band = BANDS[variant.id];
+          const hasPrice = variant.price !== null;
+          const hasMrp = variant.originalPrice !== null;
+          const savings =
+            hasPrice && hasMrp ? variant.originalPrice - variant.price : null;
 
           return (
             <div
@@ -48,7 +51,9 @@ export default function VariantSelector({
                     {band.label}
                   </span>
                 )}
-                <span className="pk-save">Save {formatPrice(savings)}</span>
+                {savings > 0 && (
+                  <span className="pk-save">Save {formatPrice(savings)}</span>
+                )}
               </div>
 
               <div className="pk-row">
@@ -59,13 +64,19 @@ export default function VariantSelector({
                 </div>
 
                 <div className="pk-info">
-                  <p className="pk-name">Pack of {variant.packSize}</p>
-                  <p className="pk-sub">Zip Zap Duster</p>
+                  <p className="pk-name">{variant.name}</p>
+                  <p className="pk-sub">{variant.subtitle}</p>
                 </div>
 
                 <div className="pk-prices">
-                  <span className="pk-price">{formatPrice(variant.price)}</span>
-                  <span className="pk-old">{formatPrice(variant.originalPrice)}</span>
+                  {hasPrice && (
+                    <span className="pk-price">{formatPrice(variant.price)}</span>
+                  )}
+                  {hasMrp && (
+                    <span className="pk-old">
+                      {formatPrice(variant.originalPrice)}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

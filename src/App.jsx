@@ -654,9 +654,12 @@ export default function App() {
                 <strong>4.6/5</strong> · 5 Lakh+ Happy Customers
               </span>
             </div>
-            <div className="product-title-row">
-              <h1 className="main-title">
-                ZIP-ZAP <span className="highlight">DUSTER.</span>
+                        <div className="product-title-row">
+                           <h1 className="main-title">
+                ZIP-ZAP <span className="highlight">DUSTER.</span>{" "}
+                {selectedVariant && selectedVariant.tag && (
+                  <span className="title-pack-tag">{selectedVariant.tag}</span>
+                )}
               </h1>
 
               <button
@@ -667,6 +670,20 @@ export default function App() {
                 <Share2 size={21} />
               </button>
             </div>
+
+            <div className="title-price-row">
+              <s className="title-mrp">
+                ₹{displayOldPrice.toLocaleString("en-IN")}
+              </s>
+              <strong className="title-price">
+                ₹{displayPrice.toLocaleString("en-IN")}
+              </strong>
+              <span className="title-save">
+                Save ₹{(displayOldPrice - displayPrice).toLocaleString("en-IN")} (
+                {discountPercentage}%)
+              </span>
+            </div>
+            
             <p className="subtitle">Ceramic-Wax Infused Car Duster Kit</p>
             <p className="description">
               Engineered for absolute car fanatics. Fights against dust, dirt,
@@ -692,7 +709,7 @@ export default function App() {
                   ₹{displayOldPrice.toLocaleString("en-IN")}
                 </span>
 
-                <span className="discount-tag">SAVE {discountPercentage}%</span>
+                {/* <span className="discount-tag">SAVE {discountPercentage}%</span> */}
               </div>
 
               <div className="price-extra-row">

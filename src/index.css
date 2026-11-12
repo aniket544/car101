@@ -6166,3 +6166,84 @@ align-items: center;
 #review-message {
   resize: none;
 }
+/* Product title on one line, price row directly below (PC, tablet, phone) */
+.product-title-row .main-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: clamp(24px, 4vw, 44px);
+  line-height: 1.05;
+  min-width: 0;
+}
+
+.title-price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 8px 0 2px;
+}
+
+.title-mrp {
+  color: var(--color-muted);
+  font-size: clamp(14px, 1.6vw, 18px);
+}
+
+.title-price {
+  color: var(--color-primary);
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.title-save {
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: #15803d;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Keep "ZIP-ZAP DUSTER." on one line (the global .highlight rule forces display:block) */
+.main-title .highlight {
+  display: inline;
+}
+
+/* Pack / combo tag: visible, spaced from the title, wraps to the next line when long */
+.product-title-row .main-title {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.main-title .title-pack-tag {
+  display: inline;
+  margin-left: 10px;
+  letter-spacing: 0;
+  font-size: clamp(13px, 1.4vw, 16px);
+  font-weight: 600;
+  color: #b8b8b8;
+  white-space: normal;
+}
+/* Phone: tighter title, smaller tag, less space between title and price row */
+@media (max-width: 520px) {
+  .product-title-row .main-title {
+    font-size: 26px;
+    line-height: 1.05;
+  }
+
+  .main-title .title-pack-tag {
+    font-size: 12px;
+    margin-left: 6px;
+  }
+
+  .title-price-row {
+    margin: 2px 0 0;
+    gap: 6px 10px;
+  }
+
+  .product-title-row {
+    align-items: flex-start;
+  }
+}
