@@ -10,5 +10,5 @@ import hd3 from "../assets/hero-desktop-3.png";
 import hd4 from "../assets/hero-desktop-4.png";
 import hd5 from "../assets/hero-desktop-5.png";
 
-export const HERO_MOBILE_IMAGES = [hm1, hm2, hm3, hm4, hm5];
-export const HERO_DESKTOP_IMAGES = [hd1, hd2, hd3, hd4, hd5];
+export const HERO_MOBILE_IMAGES = [hm2, hm3, hm1, hm4, hm5];
+export const HERO_DESKTOP_IMAGES = [hd2, hd4, hd1, hd3, hd5];
