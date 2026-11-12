@@ -25,7 +25,6 @@ import featureIcon2 from "./assets/icon2.svg";
 import featureIcon3 from "./assets/icon3.svg";
 import featureIcon4 from "./assets/icon4.svg";
 
-
 const PRODUCT = {
   id: "car101-zip-zap-duster",
   name: "CAR 101 Zip-Zap Duster",
@@ -362,6 +361,7 @@ export default function App() {
           price: variant.price,
           image: variant.image,
           quantity: 1,
+          mrp: variant.originalPrice ?? variant.mrp ?? null,
         },
       ];
     });
@@ -426,6 +426,7 @@ export default function App() {
           name: selectedVariant.name,
           price: selectedVariant.price,
           image: selectedVariant.image,
+          mrp: selectedVariant.originalPrice ?? selectedVariant.mrp ?? null,
           quantity: 1,
         },
       ]);
@@ -703,11 +704,11 @@ export default function App() {
               </div>
 
               <div className="price-saving">
-  <span className="price-saving-label">You save</span>
-  <span className="price-saving-amount">
-    ₹{selectedSavings.toLocaleString("en-IN")}
-  </span>
-</div>
+                <span className="price-saving-label">You save</span>
+                <span className="price-saving-amount">
+                  ₹{selectedSavings.toLocaleString("en-IN")}
+                </span>
+              </div>
             </div>
 
             <div
@@ -781,25 +782,25 @@ export default function App() {
             </section>
 
             <div className="product-features-grid">
-  <div className="product-feature-icons">
-    <div className="product-feature">
-      <img src={featureIcon1} alt="" width="72" height="72" />
-      <span>Ceramic-Wax Infused</span>
-    </div>
-    <div className="product-feature">
-      <img src={featureIcon2} alt="" width="72" height="72" />
-      <span>Electrostatic Power</span>
-    </div>
-    <div className="product-feature">
-      <img src={featureIcon3} alt="" width="72" height="72" />
-      <span>Waterless Cleaning</span>
-    </div>
-    <div className="product-feature">
-      <img src={featureIcon4} alt="" width="72" height="72" />
-      <span>Made in India</span>
-    </div>
-  </div>
-</div>
+              <div className="product-feature-icons">
+                <div className="product-feature">
+                  <img src={featureIcon1} alt="" width="72" height="72" />
+                  <span>Ceramic-Wax Infused</span>
+                </div>
+                <div className="product-feature">
+                  <img src={featureIcon2} alt="" width="72" height="72" />
+                  <span>Electrostatic Power</span>
+                </div>
+                <div className="product-feature">
+                  <img src={featureIcon3} alt="" width="72" height="72" />
+                  <span>Waterless Cleaning</span>
+                </div>
+                <div className="product-feature">
+                  <img src={featureIcon4} alt="" width="72" height="72" />
+                  <span>Made in India</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -866,10 +867,8 @@ export default function App() {
             </div>
             <div className="customer-reviews-heading">
               <div>
-                
                 <h3>What drivers are saying</h3>
               </div>
-              
             </div>
             {customerReviews.length > 0 ? (
               <div className="customer-review-grid">
@@ -1102,6 +1101,21 @@ export default function App() {
                         <p className="cart-item-price">
                           ₹{item.price.toLocaleString("en-IN")}
                         </p>
+                        {(() => {
+                          const itemMrp = item.mrp ?? item.oldPrice ?? null;
+                          if (!itemMrp || itemMrp <= item.price) return null;
+                          return (
+                            <div className="cart-item-mrp-row">
+                              <span className="cart-item-mrp">
+                                ₹{itemMrp.toLocaleString("en-IN")}
+                              </span>
+                              <span className="cart-item-save">
+                                Save ₹
+                                {(itemMrp - item.price).toLocaleString("en-IN")}
+                              </span>
+                            </div>
+                          );
+                        })()}
                         <div className="cart-quantity">
                           <button
                             type="button"

@@ -2825,7 +2825,7 @@ color: #fff;
 @media (max-width: 768px) {
   .car101-video-section {
     width: calc(100% - 30px);
-    margin: 45px auto 60px;
+    margin: 45px auto 20px;
   }
 
   .video-heading {
@@ -3754,7 +3754,7 @@ color: #fff;
 
   .car101-video-section {
     margin-top: 56px;
-    margin-bottom: 64px;
+    margin-bottom: 35px;
   }
 
   .car101-video-wrapper {
@@ -4233,7 +4233,7 @@ color: #fff;
 @media (min-width: 1024px) {
 
   .kits-section {
-    padding: 32px 40px;
+    padding: 1px 40px;
   }
 
   .kits-inner {
@@ -6130,4 +6130,39 @@ align-items: center;
     padding: 14px 20px;
     gap: 10px;
   }
+}
+
+/* Kits arrows visible on every screen size */
+.kits-arrows {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+
+
+/* Cart item: MRP and savings line under the price */
+.cart-item-mrp-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2px 0 0;
+  font-size: 12px;
+}
+
+.cart-item-mrp {
+  color: var(--color-muted);
+  text-decoration: line-through;
+}
+
+.cart-item-save {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+
+/* Stop the review textarea from being resized */
+#review-message {
+  resize: none;
 }

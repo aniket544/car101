@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { YOU_MAY_ALSO_LIKE } from "../data/youMayAlsoLike";
-import CartIconButton from "./CartIconButton";
 
 const formatPrice = (value) => `₹${value.toLocaleString("en-IN")}`;
 
@@ -93,11 +92,6 @@ export default function YouMayAlsoLike({
                       )}
                     </div>
                   )}
-                  <CartIconButton
-                    label={`Add ${product.name} to cart`}
-                    onClick={() => onAddToCart(product)}
-                    disabled={!canAdd}
-                  />
                 </div>
 
                 <p className="ymal-name">{product.name}</p>
@@ -128,6 +122,15 @@ export default function YouMayAlsoLike({
                     )}
                   </div>
                 )}
+
+                <button
+                  type="button"
+                  className="ymal-add-btn"
+                  onClick={() => onAddToCart(product)}
+                  disabled={!canAdd}
+                >
+                  ADD TO CART
+                </button>
               </article>
             );
           })}

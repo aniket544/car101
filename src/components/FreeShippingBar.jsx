@@ -11,8 +11,8 @@ export default function FreeShippingBar({ subtotal }) {
     <div className="free-shipping">
       <p className="free-shipping-text">
         {unlocked
-          ? "Aapko free delivery mil gayi hai"
-          : `${formatPrice(remaining)} aur daalein aur free delivery paayein`}
+          ? "Congratulations! You have unlocked free delivery.  "
+          : ` Add ${formatPrice(remaining)} more to unlock free delivery`}
       </p>
       <div
         className="free-shipping-track"
