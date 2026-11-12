@@ -76,8 +76,8 @@ import towelcombo from "../assets/image2.png";
 const COMBO_PRICE = 1279.00;
 const COMBO_MRP = 1849.00;
 
-export const UNIT_PRICE = 826.00;
-export const OLD_UNIT_PRICE = 1499;
+export const UNIT_PRICE = 826.77;
+export const OLD_UNIT_PRICE = 1499.00;
 
 export const VARIANTS = [
   {
