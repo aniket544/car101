@@ -364,7 +364,7 @@ img {
 }
 
 .hero-content {
-  padding-top:  30px;
+  padding-top:  1px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -6265,7 +6265,44 @@ align-items: center;
   .hero-content .product-details-desktop {
     display: block;
     width: 100%;
-    margin-top: 24px;
+    margin-top: 1px;
   }
 }
 
+
+
+
+/* PC: heading and 3 boxes both sit in the right column under the feature icons */
+@media (min-width: 1024px) {
+  .pd-heading-desktop {
+    display: none;
+  }
+
+  .hero-content .product-details-desktop .product-details-heading {
+    text-align: left;
+    margin-bottom: 16px;
+  }
+
+  .hero-content .product-details-desktop .product-details-heading h2 {
+    text-align: left;
+  }
+
+  .hero-content .product-details-desktop .product-details-heading p {
+    text-align: left;
+  }
+}
+
+
+/* PC: left-column video taller so its bottom lines up with the right column (icons + Product Details) */
+@media (min-width: 1024px) {
+  .desktop-hero-video .car101-video-wrapper {
+    height: 575px !important;
+    min-height: 575px !important;
+    aspect-ratio: auto !important;
+  }
+
+  .desktop-hero-video .car101-showcase-video {
+    height: 100% !important;
+    object-fit: cover;
+  }
+}

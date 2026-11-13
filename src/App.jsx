@@ -688,9 +688,7 @@ export default function App() {
             </div>
             
             <p className="subtitle">Ceramic-Wax Infused Car Duster</p>
-            <p className="description">
-               Built with ceramic (SiO2) wax-coated fibres and a comfortable grip, this duster turns your daily car cleanup into a quick job. One easy swipe lifts and traps dust, never scratching your paint, leaving it smooth and spotless. Simple to use and proudly made in India.
-            </p>
+            
             <div className="mobile-variant-selector">
               <VariantSelector
                 selectedId={selectedVariantId}
@@ -792,13 +790,13 @@ export default function App() {
                 </div>
               </div>
             </div>
-             
+                         <div className="product-details-desktop">
+              <ProductDetailsSection />
+            </div>
           </div>
         </section>
 
-                    <div className="pd-heading-desktop">
-          <ProductDetailsSection />
-        </div>
+           
         <section className="car101-video-section mobile-flow-video">
           <div className="video-heading">
             <span>THE CAR101 EXPERIENCE</span>
