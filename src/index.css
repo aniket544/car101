@@ -5233,6 +5233,7 @@ color: #fff;
   mix-blend-mode: normal;
 }
 
+
 @media (min-width: 801px) {
   .hero-content {
     height: 100%;
@@ -6324,3 +6325,12 @@ align-items: center;
   }
 }
 
+
+/* Below 1025px: shorter left-column video so the spacing stays tight */
+@media (min-width: 801px) and (max-width: 1024px) {
+  .desktop-hero-video .car101-video-wrapper {
+    height: 350px !important;
+    min-height: 350px !important;
+    aspect-ratio: auto !important;
+  }
+}
