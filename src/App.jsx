@@ -26,7 +26,7 @@ import ProductDetailsSection, {
 import featureIcon1 from "./assets/icon_1.svg";
 import featureIcon2 from "./assets/icon2.svg";
 import featureIcon3 from "./assets/icon3.svg";
-import featureIcon4 from "./assets/icon4.svg";
+import featureIcon4 from "./assets/feature-icon-made-in-india.png";
 
 const PRODUCT = {
   id: "car101-zip-zap-duster",
@@ -816,6 +816,10 @@ export default function App() {
           </div>
         </section>
         
+                <div className="product-details-mobile">
+          <ProductDetailsSection />
+        </div>
+
         <div className="mobile-flow-kits">
           <KitsCombos onAddToCart={addVariantToCart} />
         </div>

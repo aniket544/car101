@@ -5228,6 +5228,11 @@ color: #fff;
   transform: scale(2.55);
 }
 
+.product-feature-icons .product-feature:nth-child(4) img {
+  filter: none;
+  mix-blend-mode: normal;
+}
+
 @media (min-width: 801px) {
   .hero-content {
     height: 100%;
@@ -6306,3 +6311,16 @@ align-items: center;
     object-fit: cover;
   }
 }
+
+/* Tablet and phone (up to 1023px): Product Details shows once, below the hero */
+@media (max-width: 1023px) {
+  .product-details-mobile {
+    display: block;
+  }
+
+  .pd-heading-desktop,
+  .product-details-desktop {
+    display: none;
+  }
+}
+
