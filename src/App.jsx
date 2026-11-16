@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import BellToggle from "./components/BellToggle";
 import PeekRating from "./components/PeekRating";
 import VariantSelector from "./components/VariantSelector";
 import logo from "./assets/CAR-101-Logo-Square.png";
@@ -148,7 +147,7 @@ export default function App() {
         JSON.stringify(customerReviews),
       );
     } catch {
-     
+      // Reviews remain available for the current session if storage is unavailable.
     }
   }, [customerReviews]);
   const purchaseActionsRef = useRef(null);
