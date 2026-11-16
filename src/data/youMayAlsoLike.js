@@ -1,5 +1,3 @@
-// Fill in image (import from ../assets) and link (product page URL) for each card.
-// Price is shown only when set. Leave price null until you have it.
 
 import glasscleaner from "../assets/glasscleaner.png";
 import liquidceramicwash from "../assets/shampo.jpg";
@@ -7,9 +5,6 @@ import hydrophobicglasscoating from "../assets/hydrofobic.png";
 import towel1200gsm from "../assets/1200-gsm-towel.jpg";
 import towel550gsm from "../assets/500-gsm.jpg";
 import glosslikeaboss from "../assets/ceramic.jpg";
-// Each product. Optional fields stay null until you fill real values; the card shows only what is set.
-// price: selling price (number). mrp: original/list price (number, must be above price to show discount).
-// rating: 0-5 (number). reviewCount: number. badge: short label text, e.g. "New".
 export const YOU_MAY_ALSO_LIKE = [
   {
     id: "foam-glass-cleaner",

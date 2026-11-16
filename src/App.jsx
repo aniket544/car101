@@ -148,7 +148,7 @@ export default function App() {
         JSON.stringify(customerReviews),
       );
     } catch {
-      // Reviews remain available for the current session if storage is unavailable.
+     
     }
   }, [customerReviews]);
   const purchaseActionsRef = useRef(null);
